@@ -1,2 +1,4 @@
-package com.tradingApp.tradingApp.model;public class UserEntity {
+package com.tradingApp.tradingApp.model;
+
+public class UserEntity {
 }
