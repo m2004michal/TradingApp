@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -40,6 +41,11 @@ public class UserEntity implements UserDetails {
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    List<Report> reports;
+
+    //ratings
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role.getAuthorities();
@@ -67,11 +73,11 @@ public class UserEntity implements UserDetails {
     }
 
 
-    //ratings
+
     //transactions
     //topUps
     //previouslyUsedPasswords;
     //profilePic
-    //reports
+    //reports //done?
 
 }
