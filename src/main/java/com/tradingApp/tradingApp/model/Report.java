@@ -27,7 +27,7 @@ public class Report {
     private String message;
 
     @Enumerated(EnumType.STRING)
-    private String cause;
+    private ReportCause cause;
 
 
 
