@@ -1,6 +1,6 @@
 --liquibase formatted sql
 --changeset michaltu:1
-CREATE TABLE users (
+CREATE TABLE userEntities (
                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
                        username VARCHAR(255) NOT NULL,
                        email VARCHAR(255) NOT NULL,
@@ -19,4 +19,9 @@ CREATE TABLE users (
                        isCredentialsNonExpired BOOLEAN NOT NULL,
                        isEnabled BOOLEAN NOT NULL
 );
+
+
+
+
+
 
