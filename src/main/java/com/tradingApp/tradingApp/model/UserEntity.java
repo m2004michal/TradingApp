@@ -42,7 +42,8 @@ public class UserEntity implements UserDetails {
     private boolean isEnabled;
 
     @OneToMany(fetch = FetchType.LAZY)
-    List<Report> reports;
+    List<Report> reportsRecived;
+
 
     //ratings
 

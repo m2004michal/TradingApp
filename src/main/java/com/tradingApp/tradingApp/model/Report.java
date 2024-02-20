@@ -2,7 +2,6 @@ package com.tradingApp.tradingApp.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.apache.catalina.User;
 
 @Entity
 @Getter
@@ -17,11 +16,11 @@ public class Report {
     private long id;
 
     @OneToOne(optional = false)
-    @JoinColumn(name = "reportedBy_ID")
+    @JoinColumn(name = "reportedByUserEntity_id")
     UserEntity reportedBy;
 
     @OneToOne(optional = false)
-    @JoinColumn(name = "reportedUser_ID")
+    @JoinColumn(name = "reportedUserEntity_id")
     UserEntity reportedUser;
 
     private String message;
