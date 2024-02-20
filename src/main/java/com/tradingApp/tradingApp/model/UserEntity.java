@@ -46,6 +46,10 @@ public class UserEntity implements UserDetails {
 
 
     //ratings
+    //transactions
+    //topUps
+    //previouslyUsedPasswords;
+    //profilePic
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -75,10 +79,7 @@ public class UserEntity implements UserDetails {
 
 
 
-    //transactions
-    //topUps
-    //previouslyUsedPasswords;
-    //profilePic
-    //reports //done?
+
+
 
 }

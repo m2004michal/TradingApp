@@ -18,6 +18,7 @@ CREATE TABLE userEntities (
                        isLocked BOOLEAN NOT NULL,
                        isCredentialsNonExpired BOOLEAN NOT NULL,
                        isEnabled BOOLEAN NOT NULL
+
 );
 
 
