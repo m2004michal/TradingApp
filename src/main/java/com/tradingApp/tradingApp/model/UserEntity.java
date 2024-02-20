@@ -45,9 +45,7 @@ public class UserEntity implements UserDetails {
     List<Report> reportsRecived;
 
 
-    //ratings
     //transactions
-    //topUps
     //previouslyUsedPasswords;
     //profilePic
 
