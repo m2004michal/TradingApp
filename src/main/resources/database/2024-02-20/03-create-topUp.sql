@@ -1,3 +1,5 @@
+-- liquibase formatted sql
+-- changeset michaltu:3
 CREATE TABLE TopUp (
                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
                        date TIMESTAMP,
