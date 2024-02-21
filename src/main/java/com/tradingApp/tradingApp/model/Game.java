@@ -1,4 +1,4 @@
-package com.tradingApp.tradingApp.model.Enums;
+package com.tradingApp.tradingApp.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
