@@ -1,5 +1,6 @@
 package com.tradingApp.tradingApp.model;
 
+import com.tradingApp.tradingApp.model.Enums.ReportCause;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -1,5 +1,6 @@
 package com.tradingApp.tradingApp.model;
 
+import com.tradingApp.tradingApp.model.Enums.PaymentOption;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

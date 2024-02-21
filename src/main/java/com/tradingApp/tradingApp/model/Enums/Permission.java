@@ -1,4 +1,4 @@
-package com.tradingApp.tradingApp.model;
+package com.tradingApp.tradingApp.model.Enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

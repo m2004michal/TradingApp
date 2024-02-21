@@ -1,4 +1,4 @@
-package com.tradingApp.tradingApp.model;
+package com.tradingApp.tradingApp.model.Enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.tradingApp.tradingApp.model.Permission.*;
+import static com.tradingApp.tradingApp.model.Enums.Permission.*;
 
 @Getter
 @RequiredArgsConstructor

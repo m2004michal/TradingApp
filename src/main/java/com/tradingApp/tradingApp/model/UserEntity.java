@@ -1,5 +1,6 @@
 package com.tradingApp.tradingApp.model;
 
+import com.tradingApp.tradingApp.model.Enums.Role;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
