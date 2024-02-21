@@ -5,5 +5,7 @@ CREATE TABLE Item (
                       name VARCHAR(255),
                       tags VARCHAR(255),
                       priceAndDateHistory VARCHAR(100000000),
-                      steamMarketId INT
+                      steamMarketId INT,
+                      category_id BIGINT,
+                      FOREIGN KEY (category_id) REFERENCES CATEGORIES(id)
 );
