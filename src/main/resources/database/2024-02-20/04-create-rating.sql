@@ -1,7 +1,7 @@
 -- liquibase formatted sql
 -- changeset michaltu:4
 CREATE TABLE Ratings (
-                               id BIGINT PRIMARY KEY,
+                               id BIGINT AUTO_INCREMENT PRIMARY KEY,
                                rating INT NOT NULL,
                                opinionMessage TEXT,
                                ratingGiver_id BIGINT,
