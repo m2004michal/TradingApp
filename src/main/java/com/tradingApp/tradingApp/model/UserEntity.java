@@ -40,13 +40,14 @@ public class UserEntity implements UserDetails {
     private boolean isLocked;
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
+    private String perviouslyUsedPasswords;
 
     @OneToMany(fetch = FetchType.LAZY)
     List<Report> reportsRecived;
 
 
     //transactions
-    //previouslyUsedPasswords;
+
     //profilePic
 
     @Override
