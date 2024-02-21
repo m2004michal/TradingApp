@@ -1,11 +1,12 @@
 package com.tradingApp.tradingApp.model;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -17,8 +18,8 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    @OneToOne
-    private Photo photo;
+    @OneToMany
+    private List<Photo> photo;
     private String tags;
     private String priceAndDateHistory;
 
