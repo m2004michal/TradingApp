@@ -22,6 +22,5 @@ public class Item {
     private List<Photo> photo;
     private String tags;
     private String priceAndDateHistory;
-
-    private int steamId;
+    private int steamMarketId;
 }
