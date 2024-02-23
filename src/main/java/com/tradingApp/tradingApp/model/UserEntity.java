@@ -42,14 +42,14 @@ public class UserEntity implements UserDetails {
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
     private String perviouslyUsedPasswords;
-
+    @OneToMany
+    private List<Rating> ratingsRecived;
     @OneToMany(fetch = FetchType.LAZY)
-    List<Report> reportsRecived;
-
-
-    //transactions
-
-    //profilePic
+    private List<Report> reportsRecived;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Transaction> transactions;
+    @OneToOne
+    private Photo profilePicture;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -19,9 +19,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
         );
         http.csrf(AbstractHttpConfigurer::disable)
-                .headers(httpSecurityHeadersConfigurer -> {
-                    httpSecurityHeadersConfigurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable);
-                });
+                .headers(httpSecurityHeadersConfigurer -> httpSecurityHeadersConfigurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
 
 
         return http.build();
