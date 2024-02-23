@@ -33,5 +33,7 @@ public class Listing {
     private boolean isNegotiable;
     private int amount;
     private boolean isQuickBuy;
+    private int views;
+    private boolean isPromoted;
 
 }
