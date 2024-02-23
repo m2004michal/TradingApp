@@ -50,6 +50,8 @@ public class UserEntity implements UserDetails {
     private List<Transaction> transactions;
     @OneToOne
     private Photo profilePicture;
+    @OneToMany
+    private List<TopUp> topups;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
