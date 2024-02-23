@@ -51,7 +51,7 @@ public class UserEntity implements UserDetails {
     @OneToOne
     private Photo profilePicture;
     @OneToMany
-    private List<TopUp> topups;
+    private List<TopUp> topUps;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
