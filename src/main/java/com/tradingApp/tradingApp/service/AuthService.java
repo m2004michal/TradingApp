@@ -6,6 +6,7 @@ import com.tradingApp.tradingApp.model.UserEntity;
 import com.tradingApp.tradingApp.repository.UserEntityRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.Instant;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class AuthService {
 
+    private final PasswordEncoder passwordEncoder;
     private final UserEntityRepository userEntityRepository;
 
     public void signup(RegisterRequest registerRequest) {
