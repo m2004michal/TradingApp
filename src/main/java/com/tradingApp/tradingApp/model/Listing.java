@@ -35,5 +35,6 @@ public class Listing {
     private boolean isQuickBuy;
     private int views;
     private boolean isPromoted;
+    private String url;
 
 }
