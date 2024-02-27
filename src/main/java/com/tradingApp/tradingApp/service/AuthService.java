@@ -5,8 +5,8 @@ import com.tradingApp.tradingApp.model.Enums.Role;
 import com.tradingApp.tradingApp.model.UserEntity;
 import com.tradingApp.tradingApp.repository.UserEntityRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.Date;
