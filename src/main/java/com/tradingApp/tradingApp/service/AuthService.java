@@ -17,6 +17,7 @@ public class AuthService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserEntityRepository userEntityRepository;
+    private final FeeService feeService;
 
     public void signup(RegisterRequest registerRequest) {
 
@@ -31,7 +32,7 @@ public class AuthService {
         userEntity.setRole(Role.USER);
         userEntity.setEnabled(false);
         userEntity.setLevel(1);
-        userEntity.setCurrentFeeFlat(feeService.calculateFee(userEntity));
+        userEntity.setCurrentFeeFlat(feeService.calculateFeeFlat(userEntity));
         userEntity.setCurrentFeePercentage(feeService.calculateCurrentFeePercentage(userEntity));
         userEntity.setAccountExpired(false);
         userEntity.setLocked(false);
