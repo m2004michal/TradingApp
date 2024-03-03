@@ -2,6 +2,7 @@ package com.tradingApp.tradingApp.service;
 
 import com.tradingApp.tradingApp.dto.RegisterRequest;
 import com.tradingApp.tradingApp.model.Enums.Role;
+import com.tradingApp.tradingApp.model.NotificationEmail;
 import com.tradingApp.tradingApp.model.UserEntity;
 import com.tradingApp.tradingApp.model.VerificationToken;
 import com.tradingApp.tradingApp.repository.UserEntityRepository;
