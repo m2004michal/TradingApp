@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -56,5 +57,11 @@ public class AuthService {
         verificationToken.setUser(userEntity);
         verificationTokenRepository.save(verificationToken);
         return token;
+    }
+
+    public void verifyAccount(String token) {
+        Optional<VerificationToken> byToken = verificationTokenRepository.findByToken(token);
+        byToken.orElseThrow(() -> new RuntimeException("Invalid Exception"));
+        fetchUserAndEnable(byToken.get());
     }
 }
