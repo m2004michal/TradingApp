@@ -23,6 +23,7 @@ public class AuthService {
     private final UserEntityRepository userEntityRepository;
     private final FeeService feeService;
     private final VerificationTokenRepository verificationTokenRepository;
+    private final MailService mailService;
 
     public void signup(RegisterRequest registerRequest) {
 
