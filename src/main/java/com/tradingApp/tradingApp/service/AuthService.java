@@ -64,4 +64,13 @@ public class AuthService {
         byToken.orElseThrow(() -> new RuntimeException("Invalid Exception"));
         fetchUserAndEnable(byToken.get());
     }
+
+    private void fetchUserAndEnable(VerificationToken verificationToken) {
+        String username = verificationToken.getUser().getUsername();
+        UserEntity byUsername = userEntityRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("no user found with username: " + username));
+        byUsername.setEnabled(true);
+        userEntityRepository.save(byUsername);
+
+    }
 }
