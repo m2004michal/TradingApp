@@ -1,5 +1,8 @@
 package com.tradingApp.tradingApp.service;
 
+import com.nimbusds.jose.proc.SecurityContext;
+import com.tradingApp.tradingApp.dto.AuthenticationResponse;
+import com.tradingApp.tradingApp.dto.LoginRequest;
 import com.tradingApp.tradingApp.dto.RegisterRequest;
 import com.tradingApp.tradingApp.model.Enums.Role;
 import com.tradingApp.tradingApp.model.NotificationEmail;
@@ -9,6 +12,10 @@ import com.tradingApp.tradingApp.repository.UserEntityRepository;
 import com.tradingApp.tradingApp.repository.VerificationTokenRepository;
 import lombok.AllArgsConstructor;
 import org.antlr.v4.runtime.Token;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +31,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final UserEntityRepository userEntityRepository;
     private final FeeService feeService;
+    private final AuthenticationManager authenticationManager;
     private final VerificationTokenRepository verificationTokenRepository;
     private final MailService mailService;
 
@@ -73,4 +81,33 @@ public class AuthService {
         userEntityRepository.save(byUsername);
 
     }
+
+    public AuthenticationResponse login(LoginRequest loginRequest) {
+        Authentication authentication = new UsernamePasswordAuthenticationToken(findUsernameFromIdentifier(loginRequest.getIdentifier()),
+                loginRequest.getPassword());
+        Authentication authenticate = authenticationManager.authenticate(authentication);
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
+        String token = jwtProvider.generateToken(authenticate);
+        return AuthenticationResponse.builder()
+                .authenticationToken(token)
+                .refreshToken(refreshTokenService.generateRefreshToken().getToken())
+                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+                .username(loginRequest.getUsername())
+                .build();
+    }
+
+
+
+    private boolean isIdentifierAnEmail(String identifier){
+        return identifier.contains("@");
+    }
+
+    private String findUsernameFromIdentifier(String identifier){
+        if (isIdentifierAnEmail(identifier)) {
+            UserEntity userEntity = userEntityRepository.findByEmail(identifier)
+                    .orElseThrow(() -> new RuntimeException("No user with email found"));
+            return userEntity.getUsername();
+        }else return identifier;
+    }
+
 }

@@ -1,15 +1,14 @@
 package com.tradingApp.tradingApp.controller;
 
+import com.tradingApp.tradingApp.dto.AuthenticationResponse;
+import com.tradingApp.tradingApp.dto.LoginRequest;
 import com.tradingApp.tradingApp.dto.RegisterRequest;
 import com.tradingApp.tradingApp.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("api/auth")
@@ -23,11 +22,18 @@ public class AuthController {
         authService.signup(registerRequest);
         return new ResponseEntity<>("User Registration Successful", HttpStatus.OK);
     }
-    @PostMapping("/verifyAccount/{token}")
+    @GetMapping("/verifyAccount/{token}")
     public ResponseEntity<String> verifyAccount(@PathVariable String token){
         authService.verifyAccount(token);
         return new ResponseEntity<>("User verified succesful", HttpStatus.OK);
     }
+
+    @PostMapping("/login")
+    public AuthenticationResponse login(@RequestBody LoginRequest loginRequest){
+        return authService.login(loginRequest);
+    }
+
+
 
 
 
