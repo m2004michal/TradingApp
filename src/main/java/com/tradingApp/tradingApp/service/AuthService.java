@@ -1,6 +1,5 @@
 package com.tradingApp.tradingApp.service;
 
-import com.nimbusds.jose.proc.SecurityContext;
 import com.tradingApp.tradingApp.dto.AuthenticationResponse;
 import com.tradingApp.tradingApp.dto.LoginRequest;
 import com.tradingApp.tradingApp.dto.RegisterRequest;
@@ -10,8 +9,8 @@ import com.tradingApp.tradingApp.model.UserEntity;
 import com.tradingApp.tradingApp.model.VerificationToken;
 import com.tradingApp.tradingApp.repository.UserEntityRepository;
 import com.tradingApp.tradingApp.repository.VerificationTokenRepository;
+import com.tradingApp.tradingApp.security.JwtProvider;
 import lombok.AllArgsConstructor;
-import org.antlr.v4.runtime.Token;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -34,6 +33,8 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final VerificationTokenRepository verificationTokenRepository;
     private final MailService mailService;
+    private final JwtProvider jwtProvider;
+    private final RefreshTokenService refreshTokenService;
 
     public void signup(RegisterRequest registerRequest) {
 
@@ -55,7 +56,7 @@ public class AuthService {
         userEntityRepository.save(userEntity);
 
         String token = generateVerificationToken(userEntity);
-        mailService.sendMail(new NotificationEmail("Please Activate your Account", userEntity.getEmail(), "http://localhost:8080/api/auth/accountVerification/" + token));
+        mailService.sendMail(new NotificationEmail("Please Activate your Account", userEntity.getEmail(), "http://localhost:8080/api/auth/verifyAccount/" + token));
     }
 
     private String generateVerificationToken(UserEntity userEntity) {
@@ -87,12 +88,13 @@ public class AuthService {
                 loginRequest.getPassword());
         Authentication authenticate = authenticationManager.authenticate(authentication);
         SecurityContextHolder.getContext().setAuthentication(authenticate);
+        String username = findUsernameFromIdentifier(loginRequest.getIdentifier());
         String token = jwtProvider.generateToken(authenticate);
         return AuthenticationResponse.builder()
                 .authenticationToken(token)
                 .refreshToken(refreshTokenService.generateRefreshToken().getToken())
                 .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
-                .username(loginRequest.getUsername())
+                .username(username)
                 .build();
     }
 
