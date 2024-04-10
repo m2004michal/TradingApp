@@ -35,6 +35,7 @@ public class AuthService {
     private final MailService mailService;
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
+    private final UserDetailsServiceImpl userDetailsService;
 
     public void signup(RegisterRequest registerRequest) {
 
@@ -84,11 +85,13 @@ public class AuthService {
     }
 
     public AuthenticationResponse login(LoginRequest loginRequest) {
-        Authentication authentication = new UsernamePasswordAuthenticationToken(findUsernameFromIdentifier(loginRequest.getIdentifier()),
-                loginRequest.getPassword());
-        Authentication authenticate = authenticationManager.authenticate(authentication);
-        SecurityContextHolder.getContext().setAuthentication(authenticate);
         String username = findUsernameFromIdentifier(loginRequest.getIdentifier());
+        System.out.println(passwordEncoder.encode(loginRequest.getPassword()));
+
+        System.out.println(userDetailsService.loadUserByUsername(username).getPassword().dec);
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username,
+                loginRequest.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
         String token = jwtProvider.generateToken(authenticate);
         return AuthenticationResponse.builder()
                 .authenticationToken(token)
