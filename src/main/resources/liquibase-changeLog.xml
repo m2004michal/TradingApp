@@ -6,4 +6,5 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
     <includeAll path="db/changelog/2024/02"/>
+    <include file="db/changelog/2024/04/11-01-changelog.sql"/>
 </databaseChangeLog>

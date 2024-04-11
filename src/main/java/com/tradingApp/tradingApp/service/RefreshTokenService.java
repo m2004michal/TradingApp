@@ -6,7 +6,6 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.sql.Ref;
 import java.time.Instant;
 import java.util.UUID;
 

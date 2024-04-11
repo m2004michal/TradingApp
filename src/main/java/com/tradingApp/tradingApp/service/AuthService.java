@@ -35,7 +35,6 @@ public class AuthService {
     private final MailService mailService;
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
-    private final UserDetailsServiceImpl userDetailsService;
 
     public void signup(RegisterRequest registerRequest) {
 
@@ -104,11 +103,16 @@ public class AuthService {
     private boolean isIdentifierAnEmail(String identifier){
         return identifier.contains("@");
     }
-
+    private boolean isIdentifierAPhoneNumber(String identifier){return identifier.contains("+");}
     private String findUsernameFromIdentifier(String identifier){
-        if (isIdentifierAnEmail(identifier)) {
+
+        if(isIdentifierAPhoneNumber(identifier)) {
+            UserEntity userEntity = userEntityRepository.findByPhoneNumber(identifier)
+                    .orElseThrow(() -> new RuntimeException("No user with provided phoneNumber found"));
+            return userEntity.getUsername();
+        }else if (isIdentifierAnEmail(identifier)) {
             UserEntity userEntity = userEntityRepository.findByEmail(identifier)
-                    .orElseThrow(() -> new RuntimeException("No user with email found"));
+                    .orElseThrow(() -> new RuntimeException("No user with provided email found"));
             return userEntity.getUsername();
         }else return identifier;
     }

@@ -25,12 +25,13 @@ public class AuthController {
     @GetMapping("/verifyAccount/{token}")
     public ResponseEntity<String> verifyAccount(@PathVariable String token){
         authService.verifyAccount(token);
-        return new ResponseEntity<>("User verified succesful", HttpStatus.OK);
+        return new ResponseEntity<>("User verified successful", HttpStatus.OK);
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
-        return new ResponseEntity<AuthenticationResponse>(authService.login(loginRequest), HttpStatus.OK);
+        return new ResponseEntity<>(authService.login(loginRequest), HttpStatus.OK);
+
     }
 
 

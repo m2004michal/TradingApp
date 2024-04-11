@@ -1,6 +1,5 @@
 package com.tradingApp.tradingApp.model;
 
-import com.tradingApp.tradingApp.model.Listing;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

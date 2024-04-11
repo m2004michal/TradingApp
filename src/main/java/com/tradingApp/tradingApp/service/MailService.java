@@ -30,7 +30,7 @@ public class MailService {
             mailSender.send(mimeMessagePreparator);
             log.info("Activation email sent");
         } catch (MailException e){
-            throw new RuntimeException("exception occured when sending mail to" + notificationEmail.getRecipient());
+            throw new RuntimeException("exception occurred when sending mail to" + notificationEmail.getRecipient());
         }
     }
 }

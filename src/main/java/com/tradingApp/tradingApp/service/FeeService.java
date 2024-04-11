@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class FeeService {
     public double calculateFeeFlat(UserEntity userEntity) {
-        return (double) 0.5/userEntity.getLevel();
+        return 0.5 /userEntity.getLevel();
     }
 
     public double calculateCurrentFeePercentage(UserEntity userEntity) {
-        return (double) 0.1/userEntity.getLevel();
+        return 0.1 /userEntity.getLevel();
     }
 }

@@ -41,11 +41,11 @@ public class UserEntity implements UserDetails {
     private boolean isLocked;
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
-    private String perviouslyUsedPasswords;
+    private String previouslyUsedPasswords;
     @OneToMany
-    private List<Rating> ratingsRecived;
+    private List<Rating> ratingsReceived;
     @OneToMany(fetch = FetchType.LAZY)
-    private List<Report> reportsRecived;
+    private List<Report> reportsReceived;
     @OneToMany(fetch = FetchType.LAZY)
     private List<Transaction> transactions;
     @OneToOne

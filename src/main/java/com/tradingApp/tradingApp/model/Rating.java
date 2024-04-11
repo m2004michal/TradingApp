@@ -20,5 +20,5 @@ public class Rating {
     @OneToOne
     private UserEntity ratingGiver;
     @OneToOne
-    private UserEntity ratingReciver;
+    private UserEntity ratingReceiver;
 }

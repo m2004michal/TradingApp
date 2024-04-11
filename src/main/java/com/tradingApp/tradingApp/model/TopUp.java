@@ -20,7 +20,7 @@ public class TopUp {
     private Long id;
     private Date date;
     @OneToOne(optional = false)
-    @JoinColumn(name = "userEntity_id")
+    @JoinColumn()
     private UserEntity userEntity;
     private double amount;
     @Enumerated(EnumType.STRING)

@@ -16,10 +16,10 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @OneToOne(optional = false)
-    @JoinColumn(name = "reportedByUserEntity_id")
+    @JoinColumn()
     UserEntity reportedBy;
     @OneToOne(optional = false)
-    @JoinColumn(name = "reportedUserEntity_id")
+    @JoinColumn()
     UserEntity reportedUser;
     private String message;
     @Enumerated(EnumType.STRING)
