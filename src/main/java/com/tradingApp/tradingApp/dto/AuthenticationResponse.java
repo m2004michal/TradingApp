@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 import java.time.Instant;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class AuthenticationResponse {
     private String authenticationToken;
     private String refreshToken;

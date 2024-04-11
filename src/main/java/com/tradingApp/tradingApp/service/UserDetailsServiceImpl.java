@@ -32,12 +32,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         return new org.springframework.security
                 .core.userdetails.User(userEntity.getUsername(), userEntity.getPassword(),
-                userEntity.isEnabled(), userEntity.isAccountNonExpired(), userEntity.isCredentialsNonExpired(),
-                userEntity.isAccountNonLocked(), getAuthorities(String.valueOf(userEntity.getRole())));
+                userEntity.isEnabled(), !userEntity.isAccountExpired(), userEntity.isCredentialsNonExpired(),
+                !userEntity.isLocked(), userEntity.getAuthorities());
     }
 
-    private Collection<? extends GrantedAuthority> getAuthorities(String role) {
-        return singletonList(new SimpleGrantedAuthority(role));
-    }
+
 
 }
