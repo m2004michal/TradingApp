@@ -52,6 +52,7 @@ public class AuthService {
         userEntity.setAccountExpired(false);
         userEntity.setLocked(false);
         userEntity.setCredentialsNonExpired(true);
+        userEntity.setPhoneNumberVerified(false);
 
         userEntityRepository.save(userEntity);
 

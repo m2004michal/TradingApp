@@ -30,7 +30,7 @@ public class UserEntity implements UserDetails {
     @Nullable
     private String name;
     @Nullable
-    private String surename;
+    private String surname;
     private Date createdDate;
     private double currentFeeFlat;
     private double currentFeePercentage;
@@ -52,6 +52,7 @@ public class UserEntity implements UserDetails {
     private Photo profilePicture;
     @OneToMany
     private List<TopUp> topUps;
+    private boolean isPhoneNumberVerified;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
