@@ -10,6 +10,7 @@ import com.tradingApp.tradingApp.model.VerificationToken;
 import com.tradingApp.tradingApp.repository.UserEntityRepository;
 import com.tradingApp.tradingApp.repository.VerificationTokenRepository;
 import com.tradingApp.tradingApp.security.JwtProvider;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,6 +37,7 @@ public class AuthService {
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
 
+    @Transactional
     public void signup(RegisterRequest registerRequest) {
 
         UserEntity userEntity = new UserEntity();
@@ -84,6 +86,7 @@ public class AuthService {
 
     }
 
+    @Transactional
     public AuthenticationResponse login(LoginRequest loginRequest) {
         String username = findUsernameFromIdentifier(loginRequest.getIdentifier());
 
