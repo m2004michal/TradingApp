@@ -2,6 +2,7 @@ package com.tradingApp.tradingApp.controller;
 
 import com.tradingApp.tradingApp.dto.AuthenticationResponse;
 import com.tradingApp.tradingApp.dto.LoginRequest;
+import com.tradingApp.tradingApp.dto.RefreshTokenRequest;
 import com.tradingApp.tradingApp.dto.RegisterRequest;
 import com.tradingApp.tradingApp.service.AuthService;
 import lombok.AllArgsConstructor;
@@ -32,6 +33,10 @@ public class AuthController {
     public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
         return new ResponseEntity<>(authService.login(loginRequest), HttpStatus.OK);
 
+    }
+    @PostMapping("refresh/token")
+    public ResponseEntity<AuthenticationResponse> refreshTokens( @RequestBody RefreshTokenRequest refreshTokenRequest){
+        return new ResponseEntity<>(authService.refreshToken(refreshTokenRequest), HttpStatus.OK);
     }
 
 

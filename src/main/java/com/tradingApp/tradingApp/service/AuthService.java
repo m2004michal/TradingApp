@@ -2,6 +2,7 @@ package com.tradingApp.tradingApp.service;
 
 import com.tradingApp.tradingApp.dto.AuthenticationResponse;
 import com.tradingApp.tradingApp.dto.LoginRequest;
+import com.tradingApp.tradingApp.dto.RefreshTokenRequest;
 import com.tradingApp.tradingApp.dto.RegisterRequest;
 import com.tradingApp.tradingApp.model.Enums.Role;
 import com.tradingApp.tradingApp.model.NotificationEmail;
@@ -121,4 +122,14 @@ public class AuthService {
         }else return identifier;
     }
 
+    public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
+        refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
+        String token = jwtProvider.generateTokenWithUsername(refreshTokenRequest.getUsername());
+        return AuthenticationResponse.builder()
+                .authenticationToken(token)
+                .refreshToken(refreshTokenRequest.getRefreshToken())
+                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+                .username(refreshTokenRequest.getUsername())
+                .build();
+    }
 }
