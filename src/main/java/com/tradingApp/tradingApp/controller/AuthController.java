@@ -1,9 +1,6 @@
 package com.tradingApp.tradingApp.controller;
 
-import com.tradingApp.tradingApp.dto.AuthenticationResponse;
-import com.tradingApp.tradingApp.dto.LoginRequest;
-import com.tradingApp.tradingApp.dto.RefreshTokenRequest;
-import com.tradingApp.tradingApp.dto.RegisterRequest;
+import com.tradingApp.tradingApp.dto.*;
 import com.tradingApp.tradingApp.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -37,6 +34,12 @@ public class AuthController {
     @PostMapping("refresh/token")
     public ResponseEntity<AuthenticationResponse> refreshTokens( @RequestBody RefreshTokenRequest refreshTokenRequest){
         return new ResponseEntity<>(authService.refreshToken(refreshTokenRequest), HttpStatus.OK);
+    }
+
+    @PostMapping("account/logout")
+    public ResponseEntity<String> logout(@RequestBody LogoutRequest logoutRequest){
+        authService.logout(logoutRequest);
+        return new ResponseEntity<>("Logout Succesful", HttpStatus.OK);
     }
 
 

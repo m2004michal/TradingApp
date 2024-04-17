@@ -1,13 +1,11 @@
 package com.tradingApp.tradingApp.service;
 
-import com.tradingApp.tradingApp.dto.AuthenticationResponse;
-import com.tradingApp.tradingApp.dto.LoginRequest;
-import com.tradingApp.tradingApp.dto.RefreshTokenRequest;
-import com.tradingApp.tradingApp.dto.RegisterRequest;
+import com.tradingApp.tradingApp.dto.*;
 import com.tradingApp.tradingApp.model.Enums.Role;
 import com.tradingApp.tradingApp.model.NotificationEmail;
 import com.tradingApp.tradingApp.model.UserEntity;
 import com.tradingApp.tradingApp.model.VerificationToken;
+import com.tradingApp.tradingApp.repository.RefreshTokenRepository;
 import com.tradingApp.tradingApp.repository.UserEntityRepository;
 import com.tradingApp.tradingApp.repository.VerificationTokenRepository;
 import com.tradingApp.tradingApp.security.JwtProvider;
@@ -37,6 +35,7 @@ public class AuthService {
     private final MailService mailService;
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
     public void signup(RegisterRequest registerRequest) {
@@ -90,11 +89,12 @@ public class AuthService {
     @Transactional
     public AuthenticationResponse login(LoginRequest loginRequest) {
         String username = findUsernameFromIdentifier(loginRequest.getIdentifier());
-
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username,
                 loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authenticate);
+
         String token = jwtProvider.generateToken(authenticate);
+
         return AuthenticationResponse.builder()
                 .authenticationToken(token)
                 .refreshToken(refreshTokenService.generateRefreshToken().getToken())
@@ -132,4 +132,10 @@ public class AuthService {
                 .username(refreshTokenRequest.getUsername())
                 .build();
     }
+
+    @Transactional
+    public void logout(LogoutRequest logoutRequest) {
+        refreshTokenRepository.deleteRefreshTokenByToken(logoutRequest.getRefreshToken()).orElseThrow(() -> new RuntimeException("token not found"));
+    }
+
 }

@@ -8,4 +8,5 @@
     <includeAll path="db/changelog/2024/02"/>
     <include file="db/changelog/2024/04/11-01-changelog.sql"/>
     <include file="db/changelog/2024/04/11-02-changelog.sql"/>
+    <include file="db/changelog/2024/04/17-01-changelog.sql"/>
 </databaseChangeLog>
