@@ -71,10 +71,12 @@ public class AuthService {
         return token;
     }
 
+    @Transactional
     public void verifyAccount(String token) {
         Optional<VerificationToken> byToken = verificationTokenRepository.findByToken(token);
         byToken.orElseThrow(() -> new RuntimeException("Invalid Exception"));
         fetchUserAndEnable(byToken.get());
+        verificationTokenRepository.deleteVerificationTokenByToken(token);
     }
 
     private void fetchUserAndEnable(VerificationToken verificationToken) {
