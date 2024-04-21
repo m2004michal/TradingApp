@@ -1,10 +1,8 @@
 package com.tradingApp.tradingApp.security;
 
-import com.tradingApp.tradingApp.model.UserEntity;
 import com.tradingApp.tradingApp.repository.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -13,7 +11,6 @@ import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,8 +21,6 @@ public class JwtProvider {
     @Value("${jwt.expiration.time}")
     private Long jwtExpirationInMillis;
     private final UserEntityRepository userEntityRepository;
-    @Value("${jwt.authorities.key}")
-    public String AUTHORITIES_KEY;
     public String generateToken(Authentication authenticate) {
         User principal = (User) authenticate.getPrincipal();
         return generateTokenWithUsername(principal.getUsername());
