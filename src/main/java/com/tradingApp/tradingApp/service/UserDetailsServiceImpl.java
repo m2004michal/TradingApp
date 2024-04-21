@@ -25,7 +25,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserEntity userEntity = userOptional
                 .orElseThrow(() -> new UsernameNotFoundException("No user " +
                         "Found with username : " + username));
-
         return new org.springframework.security
                 .core.userdetails.User(userEntity.getUsername(), userEntity.getPassword(),
                 userEntity.isEnabled(), !userEntity.isAccountExpired(), userEntity.isCredentialsNonExpired(),
