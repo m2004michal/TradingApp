@@ -20,7 +20,7 @@ public class GameController {
     private final GameService gameService;
 
     @PostMapping("/addGame")
-    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN_CREATE')")
     public ResponseEntity<String> signup(@RequestBody GameRequest gameRequest){
         gameService.addGame(gameRequest);
         return new ResponseEntity<>("Game added successfully", HttpStatus.OK);

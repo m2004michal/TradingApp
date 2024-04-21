@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,9 +38,13 @@ public class JwtProvider {
                 .issuedAt(Instant.now())
                 .expiresAt(Instant.now().plusMillis(jwtExpirationInMillis))
                 .subject(username)
-                .claim("scope", userEntityRepository.findByUsername(username).orElseThrow(
-                        () -> new RuntimeException("no username found")
-                ).getRole().name())
+                .claim("scope", userEntityRepository.findByUsername(username)
+                        .orElseThrow(() -> new RuntimeException("no username found"))
+                        .getRole()
+                        .getAuthorities()
+                        .stream()
+                        .map(Object::toString)
+                        .collect(Collectors.joining(" ")))
                 .build();
         return this.jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
