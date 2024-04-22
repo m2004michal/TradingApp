@@ -3,6 +3,7 @@ package com.tradingApp.tradingApp.service;
 import com.tradingApp.tradingApp.dto.GameRequest;
 import com.tradingApp.tradingApp.mapper.GameMapper;
 import com.tradingApp.tradingApp.repository.GamesRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +16,17 @@ public class GameService {
 
     public void addGame(GameRequest gameRequest) {
         gamesRepository.save(gameMapper.mapGameRequestToGame(gameRequest));
+    }
+
+    @Transactional
+    public String deleteGameById(long id) {
+        String toReturn = "deleted successfully";
+        try {
+            gamesRepository.findGameById(id).orElseThrow(() -> new RuntimeException("No game with given id found"));
+        }catch (RuntimeException ignored){
+            toReturn = "not found";
+        }
+        gamesRepository.deleteGameById(id);
+        return toReturn;
     }
 }
