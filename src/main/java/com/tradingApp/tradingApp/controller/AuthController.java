@@ -1,10 +1,10 @@
 package com.tradingApp.tradingApp.controller;
 
 import com.tradingApp.tradingApp.dto.*;
+import com.tradingApp.tradingApp.mapper.AuthenticationMapper;
 import com.tradingApp.tradingApp.service.AuthService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+    private final AuthenticationMapper authenticationMapper;
+
 
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest){
@@ -32,8 +34,17 @@ public class AuthController {
 
     }
     @PostMapping("refresh/token")
-    public ResponseEntity<AuthenticationResponse> refreshTokens( @RequestBody RefreshTokenRequest refreshTokenRequest){
-        return new ResponseEntity<>(authService.refreshToken(refreshTokenRequest), HttpStatus.OK);
+    public ResponseEntity<SecureAuthenticationResponse> refreshTokens(@RequestBody RefreshTokenRequest refreshTokenRequest){
+        AuthenticationResponse authenticationResponse = authService.refreshToken(refreshTokenRequest);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Set-Cookie", authService.getAuthenticationTokenCookie(authenticationResponse.getAuthenticationToken()).toString());
+        httpHeaders.add("Set-Cookie", authService.getRefreshTokenCookie(authenticationResponse.getRefreshToken()).toString());
+        return ResponseEntity.ok()
+                .headers(httpHeaders)
+                .body(authenticationMapper.mapResponseToSecureResponse(authenticationResponse));
+
+//        return new ResponseEntity<>(authService.refreshToken(refreshTokenRequest), HttpStatus.OK);
+
     }
 
 

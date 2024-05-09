@@ -10,7 +10,10 @@ import com.tradingApp.tradingApp.repository.UserEntityRepository;
 import com.tradingApp.tradingApp.repository.VerificationTokenRepository;
 import com.tradingApp.tradingApp.security.JwtProvider;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpCookie;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,7 +27,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AuthService {
 
     private final PasswordEncoder passwordEncoder;
@@ -36,6 +39,9 @@ public class AuthService {
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
     private final RefreshTokenRepository refreshTokenRepository;
+    @Value("${jwt.expiration.time}")
+    private long jwtExpirationInMillis;
+    private static final int expireWhenBrowserClosed = -1;
 
     @Transactional
     public void signup(RegisterRequest registerRequest) {
@@ -138,6 +144,23 @@ public class AuthService {
     @Transactional
     public void logout(LogoutRequest logoutRequest) {
         refreshTokenRepository.deleteRefreshTokenByToken(logoutRequest.getRefreshToken()).orElseThrow(() -> new RuntimeException("token not found"));
+    }
+
+    public HttpCookie getAuthenticationTokenCookie(String authenticaitonToken){
+        return ResponseCookie.from("AuthenticationToken", authenticaitonToken)
+                .httpOnly(true)
+                .maxAge(jwtExpirationInMillis)
+//                .secure(true)
+                // po przerzuceniu na https odkomentowac!!!!!!!
+                .build();
+    }
+    public HttpCookie getRefreshTokenCookie(String refreshToken){
+        return ResponseCookie.from("RefreshToken", refreshToken)
+                .httpOnly(true)
+                .maxAge(expireWhenBrowserClosed)
+//                .secure(true)
+                // po przerzuceniu na https odkomentowac!!!!!!!
+                .build();
     }
 
 }
