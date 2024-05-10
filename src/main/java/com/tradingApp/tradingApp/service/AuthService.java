@@ -171,6 +171,9 @@ public class AuthService {
         return ResponseCookie.from("RefreshToken", refreshToken)
                 .httpOnly(true)
                 .maxAge(expireWhenBrowserClosed)
+                .path("/")
+                .domain("localhost")
+//                .sameSite("None")
 //                .secure(true)
                 // po przerzuceniu na https odkomentowac!!!!!!!
                 .build();
