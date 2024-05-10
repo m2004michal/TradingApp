@@ -42,9 +42,6 @@ public class AuthController {
         return ResponseEntity.ok()
                 .headers(httpHeaders)
                 .body(authenticationMapper.mapResponseToSecureResponse(authenticationResponse));
-
-//        return new ResponseEntity<>(authService.refreshToken(refreshTokenRequest), HttpStatus.OK);
-
     }
 
 
