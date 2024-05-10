@@ -9,6 +9,7 @@ import com.tradingApp.tradingApp.repository.RefreshTokenRepository;
 import com.tradingApp.tradingApp.repository.UserEntityRepository;
 import com.tradingApp.tradingApp.repository.VerificationTokenRepository;
 import com.tradingApp.tradingApp.security.JwtProvider;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
@@ -130,14 +132,25 @@ public class AuthService {
         }else return identifier;
     }
 
-    public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
-        refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
-        String token = jwtProvider.generateTokenWithUsername(refreshTokenRequest.getUsername());
+//    public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
+//        refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
+//        String token = jwtProvider.generateTokenWithUsername(refreshTokenRequest.getUsername());
+//        return AuthenticationResponse.builder()
+//                .authenticationToken(token)
+//                .refreshToken(refreshTokenRequest.getRefreshToken())
+//                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+//                .username(refreshTokenRequest.getUsername())
+//                .build();
+//    }
+    public AuthenticationResponse refreshTokenUsingCookie(String username, String refreshToken){
+        System.out.println(refreshToken);
+        refreshTokenService.validateRefreshToken(refreshToken);
+        String token = jwtProvider.generateTokenWithUsername(username);
         return AuthenticationResponse.builder()
                 .authenticationToken(token)
-                .refreshToken(refreshTokenRequest.getRefreshToken())
+                .refreshToken(refreshToken)
                 .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
-                .username(refreshTokenRequest.getUsername())
+                .username(username)
                 .build();
     }
 

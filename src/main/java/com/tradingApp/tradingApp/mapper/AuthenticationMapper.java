@@ -10,6 +10,7 @@ public class AuthenticationMapper {
         return SecureAuthenticationResponse.builder()
                 .username(authenticationResponse.getUsername())
                 .expiresAt(authenticationResponse.getExpiresAt())
+                .authenticationToken(authenticationResponse.getAuthenticationToken())
                 .build();
     }
 }

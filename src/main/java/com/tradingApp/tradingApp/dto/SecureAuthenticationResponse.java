@@ -11,6 +11,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @Builder
 public class SecureAuthenticationResponse {
+    private String authenticationToken;
     private Instant expiresAt;
     private String username;
 }

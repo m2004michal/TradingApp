@@ -3,6 +3,7 @@ package com.tradingApp.tradingApp.controller;
 import com.tradingApp.tradingApp.dto.*;
 import com.tradingApp.tradingApp.mapper.AuthenticationMapper;
 import com.tradingApp.tradingApp.service.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
@@ -29,19 +30,20 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
-        return new ResponseEntity<>(authService.login(loginRequest), HttpStatus.OK);
-
-    }
-    @PostMapping("refresh/token")
-    public ResponseEntity<SecureAuthenticationResponse> refreshTokens(@RequestBody RefreshTokenRequest refreshTokenRequest){
-        AuthenticationResponse authenticationResponse = authService.refreshToken(refreshTokenRequest);
+    public ResponseEntity<SecureAuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Set-Cookie", authService.getAuthenticationTokenCookie(authenticationResponse.getAuthenticationToken()).toString());
-        httpHeaders.add("Set-Cookie", authService.getRefreshTokenCookie(authenticationResponse.getRefreshToken()).toString());
+        AuthenticationResponse login = authService.login(loginRequest);
+        httpHeaders.add("Set-Cookie", authService.getRefreshTokenCookie(login.getRefreshToken()).toString());
         return ResponseEntity.ok()
                 .headers(httpHeaders)
-                .body(authenticationMapper.mapResponseToSecureResponse(authenticationResponse));
+                .body(authenticationMapper.mapResponseToSecureResponse(login));
+
+    }
+
+    @PostMapping("refresh/token")
+    public ResponseEntity<SecureAuthenticationResponse> refreshTokens(@RequestBody RefreshTokenRequest refreshTokenRequest, @CookieValue(name = "RefreshToken") String refreshToken){
+        AuthenticationResponse authenticationResponse = authService.refreshTokenUsingCookie(refreshTokenRequest.getUsername(), refreshToken);
+        return new ResponseEntity<>(authenticationMapper.mapResponseToSecureResponse(authenticationResponse), HttpStatus.OK);
     }
 
 
