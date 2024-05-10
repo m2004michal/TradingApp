@@ -147,7 +147,7 @@ public class AuthService {
     }
 
     public HttpCookie getAuthenticationTokenCookie(String authenticaitonToken){
-        return ResponseCookie.from("AuthenticationToken", authenticaitonToken)
+        return ResponseCookie.from("Authorization", "Bearer " + authenticaitonToken)
                 .httpOnly(true)
                 .maxAge(jwtExpirationInMillis)
 //                .secure(true)
