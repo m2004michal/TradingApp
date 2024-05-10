@@ -9,10 +9,8 @@ import com.tradingApp.tradingApp.repository.RefreshTokenRepository;
 import com.tradingApp.tradingApp.repository.UserEntityRepository;
 import com.tradingApp.tradingApp.repository.VerificationTokenRepository;
 import com.tradingApp.tradingApp.security.JwtProvider;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpCookie;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,7 +21,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
@@ -41,8 +38,6 @@ public class AuthService {
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
     private final RefreshTokenRepository refreshTokenRepository;
-    @Value("${jwt.expiration.time}")
-    private long jwtExpirationInMillis;
     private static final int expireWhenBrowserClosed = -1;
 
     @Transactional
@@ -120,7 +115,6 @@ public class AuthService {
     }
     private boolean isIdentifierAPhoneNumber(String identifier){return identifier.contains("+");}
     private String findUsernameFromIdentifier(String identifier){
-
         if(isIdentifierAPhoneNumber(identifier)) {
             UserEntity userEntity = userEntityRepository.findByPhoneNumber(identifier)
                     .orElseThrow(() -> new RuntimeException("No user with provided phoneNumber found"));
@@ -132,16 +126,6 @@ public class AuthService {
         }else return identifier;
     }
 
-//    public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
-//        refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
-//        String token = jwtProvider.generateTokenWithUsername(refreshTokenRequest.getUsername());
-//        return AuthenticationResponse.builder()
-//                .authenticationToken(token)
-//                .refreshToken(refreshTokenRequest.getRefreshToken())
-//                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
-//                .username(refreshTokenRequest.getUsername())
-//                .build();
-//    }
     public AuthenticationResponse refreshTokenUsingCookie(String username, String refreshToken){
         System.out.println(refreshToken);
         refreshTokenService.validateRefreshToken(refreshToken);
@@ -159,14 +143,6 @@ public class AuthService {
         refreshTokenRepository.deleteRefreshTokenByToken(logoutRequest.getRefreshToken()).orElseThrow(() -> new RuntimeException("token not found"));
     }
 
-    public HttpCookie getAuthenticationTokenCookie(String authenticaitonToken){
-        return ResponseCookie.from("Authorization", authenticaitonToken)
-                .httpOnly(true)
-                .maxAge(jwtExpirationInMillis)
-//                .secure(true)
-                // po przerzuceniu na https odkomentowac!!!!!!!
-                .build();
-    }
     public HttpCookie getRefreshTokenCookie(String refreshToken){
         return ResponseCookie.from("RefreshToken", refreshToken)
                 .httpOnly(true)

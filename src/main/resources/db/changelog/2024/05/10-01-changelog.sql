@@ -8,13 +8,6 @@ CREATE TABLE category
     CONSTRAINT pk_category PRIMARY KEY (id)
 );
 
--- changeset michaltu:1715314131181-2
-CREATE TABLE category_listings
-(
-    category_id BIGINT NOT NULL,
-    listings_id BIGINT NOT NULL
-);
-
 -- changeset michaltu:1715314131181-3
 CREATE TABLE game
 (
@@ -23,12 +16,6 @@ CREATE TABLE game
     CONSTRAINT pk_game PRIMARY KEY (id)
 );
 
--- changeset michaltu:1715314131181-4
-CREATE TABLE game_categories
-(
-    game_id       BIGINT NOT NULL,
-    categories_id BIGINT NOT NULL
-);
 
 -- changeset michaltu:1715314131181-5
 CREATE TABLE item
@@ -41,12 +28,6 @@ CREATE TABLE item
     CONSTRAINT pk_item PRIMARY KEY (id)
 );
 
--- changeset michaltu:1715314131181-6
-CREATE TABLE item_photo
-(
-    item_id  BIGINT NOT NULL,
-    photo_id BIGINT NOT NULL
-);
 
 -- changeset michaltu:1715314131181-7
 CREATE TABLE listing
@@ -138,20 +119,6 @@ CREATE TABLE transaction
     CONSTRAINT pk_transaction PRIMARY KEY (id)
 );
 
--- changeset michaltu:1715314131181-14
-CREATE TABLE transaction_user_entity1items
-(
-    transaction_id       BIGINT NOT NULL,
-    user_entity1items_id BIGINT NOT NULL
-);
-
--- changeset michaltu:1715314131181-15
-CREATE TABLE transaction_user_entity2items
-(
-    transaction_id       BIGINT NOT NULL,
-    user_entity2items_id BIGINT NOT NULL
-);
-
 -- changeset michaltu:1715314131181-16
 CREATE TABLE user_entity
 (
@@ -178,34 +145,6 @@ CREATE TABLE user_entity
     CONSTRAINT pk_userentity PRIMARY KEY (id)
 );
 
--- changeset michaltu:1715314131181-17
-CREATE TABLE user_entity_ratings_received
-(
-    user_entity_id      BIGINT NOT NULL,
-    ratings_received_id BIGINT NOT NULL
-);
-
--- changeset michaltu:1715314131181-18
-CREATE TABLE user_entity_reports_received
-(
-    user_entity_id      BIGINT NOT NULL,
-    reports_received_id BIGINT NOT NULL
-);
-
--- changeset michaltu:1715314131181-19
-CREATE TABLE user_entity_top_ups
-(
-    user_entity_id BIGINT NOT NULL,
-    top_ups_id     BIGINT NOT NULL
-);
-
--- changeset michaltu:1715314131181-20
-CREATE TABLE user_entity_transactions
-(
-    user_entity_id  BIGINT NOT NULL,
-    transactions_id BIGINT NOT NULL
-);
-
 -- changeset michaltu:1715314131181-21
 CREATE TABLE verification_token
 (
@@ -215,18 +154,6 @@ CREATE TABLE verification_token
     expiry_date TIMESTAMP,
     CONSTRAINT pk_verificationtoken PRIMARY KEY (id)
 );
-
--- changeset michaltu:1715314131181-22
-ALTER TABLE category_listings
-    ADD CONSTRAINT uc_category_listings_listings UNIQUE (listings_id);
-
--- changeset michaltu:1715314131181-23
-ALTER TABLE game_categories
-    ADD CONSTRAINT uc_game_categories_categories UNIQUE (categories_id);
-
--- changeset michaltu:1715314131181-24
-ALTER TABLE item_photo
-    ADD CONSTRAINT uc_item_photo_photo UNIQUE (photo_id);
 
 -- changeset michaltu:1715314131181-25
 ALTER TABLE report
@@ -239,30 +166,6 @@ ALTER TABLE report
 -- changeset michaltu:1715314131181-27
 ALTER TABLE top_up
     ADD CONSTRAINT uc_topup_user_entity UNIQUE (user_entity_id);
-
--- changeset michaltu:1715314131181-28
-ALTER TABLE transaction_user_entity1items
-    ADD CONSTRAINT uc_transaction_user_entity1items_userentity1items UNIQUE (user_entity1items_id);
-
--- changeset michaltu:1715314131181-29
-ALTER TABLE transaction_user_entity2items
-    ADD CONSTRAINT uc_transaction_user_entity2items_userentity2items UNIQUE (user_entity2items_id);
-
--- changeset michaltu:1715314131181-30
-ALTER TABLE user_entity_ratings_received
-    ADD CONSTRAINT uc_user_entity_ratings_received_ratingsreceived UNIQUE (ratings_received_id);
-
--- changeset michaltu:1715314131181-31
-ALTER TABLE user_entity_reports_received
-    ADD CONSTRAINT uc_user_entity_reports_received_reportsreceived UNIQUE (reports_received_id);
-
--- changeset michaltu:1715314131181-32
-ALTER TABLE user_entity_top_ups
-    ADD CONSTRAINT uc_user_entity_top_ups_topups UNIQUE (top_ups_id);
-
--- changeset michaltu:1715314131181-33
-ALTER TABLE user_entity_transactions
-    ADD CONSTRAINT uc_user_entity_transactions_transactions UNIQUE (transactions_id);
 
 -- changeset michaltu:1715314131181-34
 ALTER TABLE listing
@@ -311,76 +214,3 @@ ALTER TABLE user_entity
 -- changeset michaltu:1715314131181-45
 ALTER TABLE verification_token
     ADD CONSTRAINT FK_VERIFICATIONTOKEN_ON_USER FOREIGN KEY (user_id) REFERENCES user_entity (id);
-
--- changeset michaltu:1715314131181-46
-ALTER TABLE category_listings
-    ADD CONSTRAINT fk_catlis_on_category FOREIGN KEY (category_id) REFERENCES category (id);
-
--- changeset michaltu:1715314131181-47
-ALTER TABLE category_listings
-    ADD CONSTRAINT fk_catlis_on_listing FOREIGN KEY (listings_id) REFERENCES listing (id);
-
--- changeset michaltu:1715314131181-48
-ALTER TABLE game_categories
-    ADD CONSTRAINT fk_gamcat_on_category FOREIGN KEY (categories_id) REFERENCES category (id);
-
--- changeset michaltu:1715314131181-49
-ALTER TABLE game_categories
-    ADD CONSTRAINT fk_gamcat_on_game FOREIGN KEY (game_id) REFERENCES game (id);
-
--- changeset michaltu:1715314131181-50
-ALTER TABLE item_photo
-    ADD CONSTRAINT fk_itepho_on_item FOREIGN KEY (item_id) REFERENCES item (id);
-
--- changeset michaltu:1715314131181-51
-ALTER TABLE item_photo
-    ADD CONSTRAINT fk_itepho_on_photo FOREIGN KEY (photo_id) REFERENCES photo (id);
-
--- changeset michaltu:1715314131181-52
-ALTER TABLE transaction_user_entity1items
-    ADD CONSTRAINT fk_trauseent_on_item FOREIGN KEY (user_entity1items_id) REFERENCES item (id);
-
--- changeset michaltu:1715314131181-53
-ALTER TABLE transaction_user_entity2items
-    ADD CONSTRAINT fk_trauseent_on_itemrI7Eof FOREIGN KEY (user_entity2items_id) REFERENCES item (id);
-
--- changeset michaltu:1715314131181-54
-ALTER TABLE transaction_user_entity1items
-    ADD CONSTRAINT fk_trauseent_on_transaction FOREIGN KEY (transaction_id) REFERENCES transaction (id);
-
--- changeset michaltu:1715314131181-55
-ALTER TABLE transaction_user_entity2items
-    ADD CONSTRAINT fk_trauseent_on_transactionKxE6nK FOREIGN KEY (transaction_id) REFERENCES transaction (id);
-
--- changeset michaltu:1715314131181-56
-ALTER TABLE user_entity_ratings_received
-    ADD CONSTRAINT fk_useentratrec_on_rating FOREIGN KEY (ratings_received_id) REFERENCES rating (id);
-
--- changeset michaltu:1715314131181-57
-ALTER TABLE user_entity_ratings_received
-    ADD CONSTRAINT fk_useentratrec_on_user_entity FOREIGN KEY (user_entity_id) REFERENCES user_entity (id);
-
--- changeset michaltu:1715314131181-58
-ALTER TABLE user_entity_reports_received
-    ADD CONSTRAINT fk_useentreprec_on_report FOREIGN KEY (reports_received_id) REFERENCES report (id);
-
--- changeset michaltu:1715314131181-59
-ALTER TABLE user_entity_reports_received
-    ADD CONSTRAINT fk_useentreprec_on_user_entity FOREIGN KEY (user_entity_id) REFERENCES user_entity (id);
-
--- changeset michaltu:1715314131181-60
-ALTER TABLE user_entity_top_ups
-    ADD CONSTRAINT fk_useenttopups_on_top_up FOREIGN KEY (top_ups_id) REFERENCES top_up (id);
-
--- changeset michaltu:1715314131181-61
-ALTER TABLE user_entity_top_ups
-    ADD CONSTRAINT fk_useenttopups_on_user_entity FOREIGN KEY (user_entity_id) REFERENCES user_entity (id);
-
--- changeset michaltu:1715314131181-62
-ALTER TABLE user_entity_transactions
-    ADD CONSTRAINT fk_useenttra_on_transaction FOREIGN KEY (transactions_id) REFERENCES transaction (id);
-
--- changeset michaltu:1715314131181-63
-ALTER TABLE user_entity_transactions
-    ADD CONSTRAINT fk_useenttra_on_user_entity FOREIGN KEY (user_entity_id) REFERENCES user_entity (id);
-

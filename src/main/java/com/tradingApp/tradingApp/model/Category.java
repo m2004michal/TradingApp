@@ -1,10 +1,7 @@
 package com.tradingApp.tradingApp.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -13,11 +10,14 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    String name;
+    private String name;
+    @ManyToOne
+    private Game game;
     @OneToMany
-    List<Listing> listings;
+    private List<Listing> listings;
 }
