@@ -17,7 +17,6 @@ public class MailService {
     private final JavaMailSender mailSender;
     private final MailContentBuilder mailContentBuilder;
 
-
     void sendMail(NotificationEmail notificationEmail){
         MimeMessagePreparator mimeMessagePreparator = mimeMessage ->{
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);

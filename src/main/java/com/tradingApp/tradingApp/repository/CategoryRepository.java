@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    Optional<Category> findCategoryByNameAndAndGame (String categoryName, Game game);
+    Optional<Category> findCategoryByNameAndGame(String categoryName, Game game);
+    void deleteCategoryById(Long id);
 
 }

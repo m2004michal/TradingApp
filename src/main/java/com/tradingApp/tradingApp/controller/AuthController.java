@@ -3,11 +3,11 @@ package com.tradingApp.tradingApp.controller;
 import com.tradingApp.tradingApp.dto.*;
 import com.tradingApp.tradingApp.mapper.AuthenticationMapper;
 import com.tradingApp.tradingApp.service.AuthService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 
 @Controller
 @RequestMapping("api/auth")
@@ -16,7 +16,6 @@ public class AuthController {
 
     private final AuthService authService;
     private final AuthenticationMapper authenticationMapper;
-
 
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest){
@@ -45,12 +44,4 @@ public class AuthController {
         AuthenticationResponse authenticationResponse = authService.refreshTokenUsingCookie(refreshTokenRequest.getUsername(), refreshToken);
         return new ResponseEntity<>(authenticationMapper.mapResponseToSecureResponse(authenticationResponse), HttpStatus.OK);
     }
-
-
-
-
-
-
-
-
 }

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-
 @Service
 @AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -30,7 +29,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 userEntity.isEnabled(), !userEntity.isAccountExpired(), userEntity.isCredentialsNonExpired(),
                 !userEntity.isLocked(), userEntity.getAuthorities());
     }
-
-
-
 }

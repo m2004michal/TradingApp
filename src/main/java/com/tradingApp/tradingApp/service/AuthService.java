@@ -42,7 +42,6 @@ public class AuthService {
 
     @Transactional
     public void signup(RegisterRequest registerRequest) {
-
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(registerRequest.getUsername());
         userEntity.setEmail(registerRequest.getEmail());
@@ -58,9 +57,7 @@ public class AuthService {
         userEntity.setLocked(false);
         userEntity.setCredentialsNonExpired(true);
         userEntity.setPhoneNumberVerified(false);
-
         userEntityRepository.save(userEntity);
-
         String token = generateVerificationToken(userEntity);
         mailService.sendMail(new NotificationEmail("Please Activate your Account", userEntity.getEmail(), "http://localhost:8080/api/auth/verifyAccount/" + token));
     }
@@ -108,8 +105,6 @@ public class AuthService {
                 .build();
     }
 
-
-
     private boolean isIdentifierAnEmail(String identifier){
         return identifier.contains("@");
     }
@@ -154,5 +149,4 @@ public class AuthService {
                 // po przerzuceniu na https odkomentowac!!!!!!!
                 .build();
     }
-
 }

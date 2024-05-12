@@ -17,7 +17,6 @@ public class Listing {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @OneToOne
     private UserEntity userEntity;
     @OneToOne
@@ -34,5 +33,6 @@ public class Listing {
     private int views;
     private boolean isPromoted;
     private String url;
-
+    @ManyToOne
+    private Category category;
 }
