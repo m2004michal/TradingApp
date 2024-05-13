@@ -11,4 +11,6 @@ public class GameMapper {
         return Game.builder()
                 .name(gameRequest.getName()).build();
     }
+
+
 }
