@@ -3,7 +3,6 @@ package com.tradingApp.tradingApp.controller;
 import com.tradingApp.tradingApp.dto.DeleteGameRequest;
 import com.tradingApp.tradingApp.dto.GameRequest;
 import com.tradingApp.tradingApp.dto.GameResponse;
-import com.tradingApp.tradingApp.model.Game;
 import com.tradingApp.tradingApp.service.GameService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
