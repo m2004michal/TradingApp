@@ -36,14 +36,14 @@ public class GameService {
     }
 
     public List<GameResponse> getAllGames() {
-        List<Game> all = gamesRepository.findAll();
-        return all.stream().map(game ->
+        List<Game> allGames = gamesRepository.findAll();
+        return allGames.stream().map(game ->
                 GameResponse.builder()
                         .gameName(game.getName())
                         .categoriesNames(game.getCategories()
                                 .stream()
                                 .map(Category::getName).toList())
-                        .build()
-                ).toList();
+                        .build())
+                .toList();
     }
 }
