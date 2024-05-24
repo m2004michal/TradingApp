@@ -1,0 +1,116 @@
+-- liquibase formatted sql
+
+-- changeset micha:1716550847829-15
+ALTER TABLE CATEGORY_LISTINGS DROP CONSTRAINT FK_CATLIS_ON_LISTING;
+
+-- changeset micha:1716550847829-16
+ALTER TABLE ITEM_PHOTO DROP CONSTRAINT FK_ITEPHO_ON_ITEM;
+
+-- changeset micha:1716550847829-17
+ALTER TABLE ITEM_PHOTO DROP CONSTRAINT FK_ITEPHO_ON_PHOTO;
+
+-- changeset micha:1716550847829-18
+ALTER TABLE LISTING DROP CONSTRAINT FK_LISTING_ON_CATEGORY;
+
+-- changeset micha:1716550847829-19
+ALTER TABLE LISTING DROP CONSTRAINT FK_LISTING_ON_ITEM;
+
+-- changeset micha:1716550847829-20
+ALTER TABLE PHOTO DROP CONSTRAINT FK_PHOTO_ON_ITEM;
+
+-- changeset micha:1716550847829-21
+ALTER TABLE TRANSACTION_USER_ENTITY1ITEMS DROP CONSTRAINT FK_TRAUSEENT_ON_ITEM;
+
+-- changeset micha:1716550847829-22
+ALTER TABLE TRANSACTION_USER_ENTITY2ITEMS DROP CONSTRAINT FK_TRAUSEENT_ON_ITEMEFGIQW;
+
+-- changeset micha:1716550847829-23
+ALTER TABLE TRANSACTION_USER_ENTITY1ITEMS DROP CONSTRAINT FK_TRAUSEENT_ON_TRANSACTION;
+
+-- changeset micha:1716550847829-24
+ALTER TABLE TRANSACTION_USER_ENTITY2ITEMS DROP CONSTRAINT FK_TRAUSEENT_ON_TRANSACTIONHZXRS4;
+
+-- changeset micha:1716550847829-1
+CREATE TABLE listing_categories
+(
+    category_id BIGINT NOT NULL,
+    photo_id    BIGINT NOT NULL
+);
+
+-- changeset micha:1716550847829-2
+CREATE TABLE listing_photos
+(
+    listing_id BIGINT NOT NULL,
+    photo_id   BIGINT NOT NULL
+);
+
+-- changeset micha:1716550847829-3
+ALTER TABLE category_listings
+    ADD listing_id BIGINT NOT NULL;
+
+-- changeset micha:1716550847829-4
+ALTER TABLE transaction
+    ADD listing_id BIGINT;
+
+-- changeset micha:1716550847829-5
+ALTER TABLE category_listings
+    ADD CONSTRAINT pk_category_listings PRIMARY KEY (listing_id);
+
+-- changeset micha:1716550847829-6
+ALTER TABLE game_categories
+    ADD CONSTRAINT pk_game_categories PRIMARY KEY (category_id);
+
+-- changeset micha:1716550847829-7
+ALTER TABLE listing_categories
+    ADD CONSTRAINT uc_listing_categories_photo UNIQUE (photo_id);
+
+-- changeset micha:1716550847829-8
+ALTER TABLE listing_photos
+    ADD CONSTRAINT uc_listing_photos_photo UNIQUE (photo_id);
+
+-- changeset micha:1716550847829-9
+ALTER TABLE transaction
+    ADD CONSTRAINT FK_TRANSACTION_ON_LISTING FOREIGN KEY (listing_id) REFERENCES listing (id);
+
+-- changeset micha:1716550847829-10
+ALTER TABLE category_listings
+    ADD CONSTRAINT fk_catlis_on_listing FOREIGN KEY (listing_id) REFERENCES listing (id);
+
+-- changeset micha:1716550847829-11
+ALTER TABLE listing_categories
+    ADD CONSTRAINT fk_liscat_on_category FOREIGN KEY (category_id) REFERENCES category (id);
+
+-- changeset micha:1716550847829-12
+ALTER TABLE listing_categories
+    ADD CONSTRAINT fk_liscat_on_listing FOREIGN KEY (photo_id) REFERENCES listing (id);
+
+-- changeset micha:1716550847829-13
+ALTER TABLE listing_photos
+    ADD CONSTRAINT fk_lispho_on_listing FOREIGN KEY (listing_id) REFERENCES listing (id);
+
+-- changeset micha:1716550847829-14
+ALTER TABLE listing_photos
+    ADD CONSTRAINT fk_lispho_on_photo FOREIGN KEY (photo_id) REFERENCES photo (id);
+
+-- changeset micha:1716550847829-30
+DROP TABLE ITEM CASCADE;
+
+-- changeset micha:1716550847829-31
+DROP TABLE ITEM_PHOTO CASCADE;
+
+-- changeset micha:1716550847829-32
+DROP TABLE TRANSACTION_USER_ENTITY1ITEMS CASCADE;
+
+-- changeset micha:1716550847829-33
+DROP TABLE TRANSACTION_USER_ENTITY2ITEMS CASCADE;
+
+-- changeset micha:1716550847829-34
+ALTER TABLE LISTING DROP COLUMN CATEGORY_ID;
+ALTER TABLE LISTING DROP COLUMN ITEM_ID;
+
+-- changeset micha:1716550847829-36
+ALTER TABLE PHOTO DROP COLUMN ITEM_ID;
+
+-- changeset micha:1716550847829-37
+ALTER TABLE CATEGORY_LISTINGS DROP COLUMN LISTINGS_ID;
+

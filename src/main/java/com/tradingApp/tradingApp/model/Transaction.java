@@ -34,11 +34,8 @@ public class Transaction {
     @Nullable
     @Enumerated(value = EnumType.STRING)
     TransactionStatus transactionStatus;
-
-    @OneToMany
-    List<Item> UserEntity1Items;
-    @OneToMany
-    List<Item> UserEntity2Items;
+    @OneToOne
+    private Listing listing;
 
 
 }

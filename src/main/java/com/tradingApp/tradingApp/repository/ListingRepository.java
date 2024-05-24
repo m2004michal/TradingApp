@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface ListingRepository extends PagingAndSortingRepository<Listing, Long> {
-    Optional<List<Listing>> findAllByPromoted(boolean isPromoted);
+    Optional<List<Listing>> findAllByIsPromoted(boolean isPromoted);
 }

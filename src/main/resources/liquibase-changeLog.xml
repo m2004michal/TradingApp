@@ -23,6 +23,9 @@
 <!--    <include file="db/changelog/2024/05/12-03-changelog.sql"/>-->
 <!--    <include file="db/changelog/2024/05/12-04-changelog.sql"/>-->
 <!--    <include file="db/changelog/2024/05/12-05-changelog.sql"/>-->
+<!--    <include file="db/changelog/2024/05/13-01-changelog.sql"/>-->
+<!--    <include file="db/changelog/2024/05/24-01-changelog.sql"/>-->
+<!--    <include file="db/changelog/2024/05/24-02-changelog.sql"/>-->
 
-    <include file="db/changelog/2024/05/13-01-changelog.sql"/>
+    <include file="db/changelog/2024/05/24-03-changelog.sql"/>
 </databaseChangeLog>

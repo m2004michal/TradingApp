@@ -26,7 +26,14 @@ public class Category {
             }
     )
     private Game game;
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "LISTING_CATEGORIES",
+            joinColumns = @JoinColumn(name = "CATEGORY_ID", nullable = false),
+            inverseJoinColumns = {
+                    @JoinColumn(name = "PHOTO_ID", nullable = false)
+            }
+    )
     private List<Listing> listings;
 
 }
