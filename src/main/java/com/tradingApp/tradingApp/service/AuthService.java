@@ -18,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -148,5 +149,16 @@ public class AuthService {
 //                .secure(true)
                 // po przerzuceniu na https odkomentowac!!!!!!!
                 .build();
+    }
+
+    public long getCurrentUserId() {
+        Jwt principal = (Jwt) SecurityContextHolder.
+                getContext().getAuthentication().getPrincipal();
+        return userEntityRepository.findByUsername(principal.getSubject())
+                .orElseThrow(() -> new RuntimeException("User name not found - " + principal.getSubject())).getId();
+    }
+
+    public boolean isLoggedUserSameAsProvided(UserEntity userEntity) {
+        return userEntity.getId().equals(getCurrentUserId());
     }
 }
