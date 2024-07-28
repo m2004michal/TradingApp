@@ -20,7 +20,10 @@ public class UserController {
 
     @GetMapping("{id}/getBalances")
     public ResponseEntity<BalancesResponse> getBalance(@PathVariable long id){
-        BalancesResponse balances = userService.getBalances(id);
-        return new ResponseEntity<>(balances, HttpStatus.OK);
+        return new ResponseEntity<>(userService.getBalances(id), HttpStatus.OK);
+    }
+    @GetMapping("{id}/getLevel")
+    public ResponseEntity<Integer> getLevel(@PathVariable long id){
+        return new ResponseEntity<>(userService.getLevel(id), HttpStatus.OK);
     }
 }

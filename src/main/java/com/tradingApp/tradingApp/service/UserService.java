@@ -16,7 +16,7 @@ public class UserService {
     private final AuthService authService;
     public BalancesResponse getBalances(long id) {
         UserEntity userEntity = userEntityRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("no user with given username found"));
+                .orElseThrow(() -> new RuntimeException("no user with given id found"));
         if (authService.isLoggedUserSameAsProvided(userEntity))
             return BalancesResponse.builder()
                     .escrowBalance(userEntity.getEscrowBalance())
@@ -29,4 +29,9 @@ public class UserService {
     }
 
 
+    public Integer getLevel(long id) {
+        UserEntity userEntity = userEntityRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("no user with given id found"));
+        return userEntity.getLevel();
+    }
 }
