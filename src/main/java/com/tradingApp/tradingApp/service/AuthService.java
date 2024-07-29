@@ -21,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Optional;
@@ -58,6 +59,9 @@ public class AuthService {
         userEntity.setLocked(false);
         userEntity.setCredentialsNonExpired(true);
         userEntity.setPhoneNumberVerified(false);
+        userEntity.setBalance(BigDecimal.valueOf(0));
+        userEntity.setEscrowBalance(BigDecimal.valueOf(0));
+        userEntity.setSecurityBalance(BigDecimal.valueOf(0));
         userEntityRepository.save(userEntity);
         String token = generateVerificationToken(userEntity);
         mailService.sendMail(new NotificationEmail("Please Activate your Account", userEntity.getEmail(), "http://localhost:8080/api/auth/verifyAccount/" + token));
