@@ -26,4 +26,8 @@ public class UserController {
     public ResponseEntity<Integer> getLevel(@PathVariable long id){
         return new ResponseEntity<>(userService.getLevel(id), HttpStatus.OK);
     }
+    @GetMapping("{id}/getProfilePictureUrl")
+    public ResponseEntity<String> getProfilePictureUrl(@PathVariable long id){
+        return new ResponseEntity<>(userService.getProfilePictureUrl(id), HttpStatus.OK);
+    }
 }

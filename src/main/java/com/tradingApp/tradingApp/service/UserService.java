@@ -34,4 +34,10 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("no user with given id found"));
         return userEntity.getLevel();
     }
+
+    public String getProfilePictureUrl(long id) {
+        UserEntity userEntity = userEntityRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("no user with given id found"));
+        return userEntity.getProfilePictureUrl();
+    }
 }
