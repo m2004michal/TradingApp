@@ -14,4 +14,5 @@ public class SecureAuthenticationResponse {
     private String authenticationToken;
     private Instant expiresAt;
     private String username;
+    private long id;
 }

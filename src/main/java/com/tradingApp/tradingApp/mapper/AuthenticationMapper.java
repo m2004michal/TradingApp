@@ -11,6 +11,7 @@ public class AuthenticationMapper {
                 .username(authenticationResponse.getUsername())
                 .expiresAt(authenticationResponse.getExpiresAt())
                 .authenticationToken(authenticationResponse.getAuthenticationToken())
+                .id(authenticationResponse.getId())
                 .build();
     }
 }
