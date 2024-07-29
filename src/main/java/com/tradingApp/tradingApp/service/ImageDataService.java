@@ -24,7 +24,7 @@ public class ImageDataService {
             UserEntity userEntity = userEntityRepository.findById(userEntityId).orElseThrow(() -> new RuntimeException("No user with given id found"));
             String toUrl = UUID.randomUUID().toString();
             String path = new File("").getAbsolutePath() +
-                    "/src/main/resources/photos/profilePictures/" + toUrl + "." + getFileExtension(multipartFile);
+                    "\\src\\main\\resources\\photos\\profilePictures\\" + toUrl + "." + getFileExtension(multipartFile);
             try {
                 multipartFile.transferTo(new File(path));
             } catch (IOException e) {
