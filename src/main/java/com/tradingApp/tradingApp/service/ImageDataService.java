@@ -16,17 +16,30 @@ import java.util.UUID;
 public class ImageDataService {
 
     private final UserEntityRepository userEntityRepository;
+    private final ImageValidationService imageValidationService;
 
     @Transactional
-    public void uploadProfilePicture(Long userEntityId, MultipartFile multipartFile) throws IOException {
-        UserEntity userEntity = userEntityRepository.findById(userEntityId).orElseThrow(() -> new RuntimeException("No user with given id found"));
-        String toUrl = UUID.randomUUID().toString();
-        String filePath = new File("").getAbsolutePath();
-        String newString = "." + multipartFile.getContentType().substring(multipartFile.getContentType().length()-3);
-        String path = filePath + "/src/main/resources/photos/profilePictures/" + toUrl + newString;
-        File file = new File(path);
-        multipartFile.transferTo(file);
-        userEntity.setProfilePictureUrl(path);
+    public void uploadProfilePicture(Long userEntityId, MultipartFile multipartFile){
+        if (imageValidationService.isProvidedImageValid(multipartFile)) {
+            UserEntity userEntity = userEntityRepository.findById(userEntityId).orElseThrow(() -> new RuntimeException("No user with given id found"));
+            String toUrl = UUID.randomUUID().toString();
+            String path = new File("").getAbsolutePath() +
+                    "/src/main/resources/photos/profilePictures/" + toUrl + "." + getFileExtension(multipartFile);
+            try {
+                multipartFile.transferTo(new File(path));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            userEntity.setProfilePictureUrl(path);
+        }
     }
 
+    public String getFileExtension(MultipartFile multipartFile) {
+        String extension = "";
+        if (multipartFile.getContentType() != null || multipartFile.getContentType().length() >= 3) {
+            extension = multipartFile.getContentType().substring(multipartFile.getContentType().length() - 3);
+            return extension;
+        }
+        return extension;
+    }
 }
