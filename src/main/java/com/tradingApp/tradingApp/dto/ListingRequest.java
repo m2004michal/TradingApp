@@ -17,10 +17,6 @@ public class ListingRequest {
     private final ListingRepository listingRepository;
     private final ListingMapper listingMapper;
 
-//    @Transactional
-//    public void save(ListingRequest listingRequest) {
-//        Category category = categoryRepository.findCategoryByNameAndGame(listingRequest.getCategoryName(), listingRequest.getGame)
-//                .orElseThrow(() -> new IllegalArgumentException("No category with name: " + listingRequest.getCategoryName() + " found"));
-//        listingRepository.save(listingMapper.map(listingRequest, category, authService.getCurrentUser()));
-//    }
+
+
 }
