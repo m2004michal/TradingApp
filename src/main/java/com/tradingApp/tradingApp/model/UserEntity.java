@@ -51,8 +51,7 @@ public class UserEntity implements UserDetails {
     private List<Report> reportsReceived;
     @OneToMany(fetch = FetchType.LAZY)
     private List<Transaction> transactions;
-    @OneToOne
-    private Photo profilePicture;
+    private String profilePictureUrl;
     @OneToMany
     private List<TopUp> topUps;
     private boolean isPhoneNumberVerified;

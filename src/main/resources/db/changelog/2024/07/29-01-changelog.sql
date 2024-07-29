@@ -1,0 +1,12 @@
+-- liquibase formatted sql
+
+-- changeset micha:1722264895186-2
+ALTER TABLE USER_ENTITY DROP CONSTRAINT FK_USERENTITY_ON_PROFILE_PICTURE;
+
+-- changeset micha:1722264895186-1
+ALTER TABLE user_entity
+    ADD profile_picture_url VARCHAR(255);
+
+-- changeset micha:1722264895186-3
+ALTER TABLE USER_ENTITY DROP COLUMN PROFILE_PICTURE_ID;
+
