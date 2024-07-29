@@ -19,7 +19,7 @@ public class ImageDataController {
     @PostMapping("/uploadProfilePicture/{userEntityId}")
     public ResponseEntity<String> uploadImage(@PathVariable Long userEntityId, @RequestParam("image") MultipartFile file) throws IOException {
         imageDataService.uploadProfilePicture(userEntityId, file);
-        return new ResponseEntity<>("Profile picture uploaded succesfully", HttpStatus.CREATED);
+        return new ResponseEntity<>("Profile picture uploaded succesfully", HttpStatus.OK);
     }
 
 }
