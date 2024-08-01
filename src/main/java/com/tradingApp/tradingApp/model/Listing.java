@@ -3,6 +3,7 @@ package com.tradingApp.tradingApp.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,13 +20,13 @@ public class Listing {
     @OneToOne
     private UserEntity userEntity;
     private Date createdDate;
-    private double price;
+    private BigDecimal price;
     private String description;
     private String title;
     private boolean isForTrade;
     private boolean isForSale;
     private boolean isNegotiable;
-    private int amount;
+    private int quantity;
     private boolean isQuickBuy;
     private int views;
     private boolean isPromoted;
