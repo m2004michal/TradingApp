@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -34,7 +35,7 @@ public class ListingMapper {
                 .isPromoted(false)
                 .category(listingRequest.getCategory())
                 .price(listingRequest.getPrice())
-                .photos(listingRequest.getPhotos())
+                .photos(new ArrayList<>(listingRequest.getPhotos()))
                 .url(UUID.randomUUID().toString())
                 .build();
 

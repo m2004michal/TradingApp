@@ -6,7 +6,7 @@ import com.tradingApp.tradingApp.model.Photo;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @RequiredArgsConstructor
@@ -24,7 +24,7 @@ public class ListingRequest {
     private boolean isNegotiable;
     private boolean isQuickBuy;
     private Category category;
-    private ArrayList<Photo> photos;
+    private List<Photo> photos;
 
 
 }

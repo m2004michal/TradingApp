@@ -1,6 +1,7 @@
 package com.tradingApp.tradingApp.controller;
 
 import com.tradingApp.tradingApp.dto.ListingRequest;
+import com.tradingApp.tradingApp.service.ListingService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,9 @@ public class ListingController {
 
     private final ListingService listingService;
 
-//    @PostMapping
-//    public ResponseEntity<String> createListing(@RequestBody ListingRequest listingRequest) {
-//        listingRequest.save(listingRequest);
-//        return new ResponseEntity<>("Post created succesfully", HttpStatus.CREATED);
-//    }
+    @PostMapping
+    public ResponseEntity<String> createListing(@RequestBody ListingRequest listingRequest) {
+        listingService.save(listingRequest);
+        return new ResponseEntity<>("Post created succesfully", HttpStatus.CREATED);
+    }
 }
