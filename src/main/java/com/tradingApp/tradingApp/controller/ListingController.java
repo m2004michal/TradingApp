@@ -17,7 +17,7 @@ public class ListingController {
 
     private final ListingService listingService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<String> createListing(@RequestBody ListingRequest listingRequest) {
         listingService.save(listingRequest);
         return new ResponseEntity<>("Post created succesfully", HttpStatus.CREATED);
