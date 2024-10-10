@@ -2,6 +2,7 @@ package com.tradingApp.tradingApp.mapper;
 
 import com.tradingApp.tradingApp.dto.ListingRequest;
 import com.tradingApp.tradingApp.model.Listing;
+import com.tradingApp.tradingApp.model.Photo;
 import com.tradingApp.tradingApp.repository.UserEntityRepository;
 import com.tradingApp.tradingApp.service.AuthService;
 import lombok.AllArgsConstructor;
@@ -35,7 +36,7 @@ public class ListingMapper {
                 .isPromoted(false)
                 .category(listingRequest.getCategory())
                 .price(listingRequest.getPrice())
-                .photos(new ArrayList<>(listingRequest.getPhotos()))
+                .photos(new ArrayList<>())
                 .url(UUID.randomUUID().toString())
                 .build();
 

@@ -9,5 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface ListingRepository extends JpaRepository<Listing, Long> {
+    Optional<Listing> getListingsById(Long id);
     Optional<List<Listing>> findAllByIsPromoted(boolean isPromoted);
 }
