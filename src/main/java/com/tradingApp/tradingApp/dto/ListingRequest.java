@@ -25,7 +25,6 @@ public class ListingRequest {
     private boolean isForSale;
     private boolean isNegotiable;
     private boolean isQuickBuy;
-    private Category category;
     private List<MultipartFile> photosAsMultipart;
     private String gameName;
     private String categoryName;
