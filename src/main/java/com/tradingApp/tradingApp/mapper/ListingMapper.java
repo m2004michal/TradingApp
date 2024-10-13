@@ -3,6 +3,8 @@ package com.tradingApp.tradingApp.mapper;
 import com.tradingApp.tradingApp.dto.ListingRequest;
 import com.tradingApp.tradingApp.model.Listing;
 import com.tradingApp.tradingApp.model.Photo;
+import com.tradingApp.tradingApp.repository.CategoryRepository;
+import com.tradingApp.tradingApp.repository.GamesRepository;
 import com.tradingApp.tradingApp.repository.UserEntityRepository;
 import com.tradingApp.tradingApp.service.AuthService;
 import lombok.AllArgsConstructor;
@@ -19,6 +21,8 @@ public class ListingMapper {
 
     private final AuthService authService;
     private final UserEntityRepository userEntityRepository;
+    private final CategoryRepository categoryRepository;
+    private final GamesRepository gamesRepository;
 
     public Listing mapDtoToListing(ListingRequest listingRequest){
         return Listing.builder()
@@ -34,7 +38,9 @@ public class ListingMapper {
                 .isForSale(listingRequest.isForSale())
                 .isForTrade(listingRequest.isForTrade())
                 .isPromoted(false)
-                .category(listingRequest.getCategory())
+                .category(categoryRepository.findCategoryByNameAndGame(listingRequest.getCategoryName(), gamesRepository.findGameByName(listingRequest.getGameName()).orElseThrow(() ->
+                        new RuntimeException("no game with given name found"))).orElseThrow(() ->
+                        new RuntimeException("no category with given name and game found")))
                 .price(listingRequest.getPrice())
                 .photos(new ArrayList<>())
                 .url(UUID.randomUUID().toString())
