@@ -1,6 +1,8 @@
 package com.tradingApp.tradingApp.controller;
 
 import com.tradingApp.tradingApp.dto.ListingRequest;
+import com.tradingApp.tradingApp.dto.ListingRequestWithNoPhotos;
+import com.tradingApp.tradingApp.mapper.ListingMapper;
 import com.tradingApp.tradingApp.service.ListingService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,6 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RequestMapping("api/listings")
 @Controller
@@ -16,10 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ListingController {
 
     private final ListingService listingService;
+    private final ListingMapper listingMapper;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createListing(@RequestBody ListingRequest listingRequest) {
-        listingService.save(listingRequest);
+    public ResponseEntity<String> createListing(@RequestBody ListingRequestWithNoPhotos listingRequestWithNoPhotos, @RequestParam("images") List<MultipartFile> images) {
+        listingService.save(listingRequestWithNoPhotos, images);
         return new ResponseEntity<>("Post created succesfully", HttpStatus.CREATED);
     }
 }

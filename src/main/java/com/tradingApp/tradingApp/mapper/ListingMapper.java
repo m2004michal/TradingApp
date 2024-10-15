@@ -1,6 +1,7 @@
 package com.tradingApp.tradingApp.mapper;
 
 import com.tradingApp.tradingApp.dto.ListingRequest;
+import com.tradingApp.tradingApp.dto.ListingRequestWithNoPhotos;
 import com.tradingApp.tradingApp.model.Listing;
 import com.tradingApp.tradingApp.model.Photo;
 import com.tradingApp.tradingApp.repository.CategoryRepository;
@@ -9,10 +10,13 @@ import com.tradingApp.tradingApp.repository.UserEntityRepository;
 import com.tradingApp.tradingApp.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.*;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -23,8 +27,9 @@ public class ListingMapper {
     private final UserEntityRepository userEntityRepository;
     private final CategoryRepository categoryRepository;
     private final GamesRepository gamesRepository;
+    private final ImageMapper imageMapper;
 
-    public Listing mapDtoToListing(ListingRequest listingRequest){
+    public Listing mapDtoToListing(ListingRequestWithNoPhotos listingRequest){
         return Listing.builder()
                 .userEntity(userEntityRepository.findById(authService.getCurrentUserId())
                         .orElseThrow(() -> new RuntimeException("no user with given id found")))
@@ -45,6 +50,5 @@ public class ListingMapper {
                 .photos(new ArrayList<>())
                 .url(UUID.randomUUID().toString())
                 .build();
-
     }
 }
