@@ -56,10 +56,7 @@ public class ImageDataService {
                     .filePath(path)
                     .name(name)
                     .build();
-            photoRepository.save(photo);
             listing.getPhotos().add(photo);
-
-
             listingRepository.save(listing);
         }
     }

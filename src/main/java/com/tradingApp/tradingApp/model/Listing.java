@@ -2,6 +2,7 @@ package com.tradingApp.tradingApp.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class Listing {
     )
     private Category category;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "LISTING_PHOTOS",
             joinColumns = @JoinColumn(name = "LISTING_ID", nullable = false),
