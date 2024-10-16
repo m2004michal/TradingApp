@@ -16,6 +16,7 @@ public class Photo {
     private long id;
     private String filePath;
     private String name;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinTable(
             name="LISTING_PHOTOS",
