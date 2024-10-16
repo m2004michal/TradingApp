@@ -4,6 +4,7 @@ import com.tradingApp.tradingApp.model.Listing;
 import com.tradingApp.tradingApp.model.Photo;
 import com.tradingApp.tradingApp.model.UserEntity;
 import com.tradingApp.tradingApp.repository.ListingRepository;
+import com.tradingApp.tradingApp.repository.PhotoRepository;
 import com.tradingApp.tradingApp.repository.UserEntityRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,7 @@ public class ImageDataService {
     private final UserEntityRepository userEntityRepository;
     private final ImageValidationService imageValidationService;
     private final ListingRepository listingRepository;
+    private final PhotoRepository photoRepository;
 
     @Transactional
     public void uploadProfilePicture(Long userEntityId, MultipartFile multipartFile){
@@ -49,11 +51,15 @@ public class ImageDataService {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            listing.getPhotos().add(Photo.builder()
+            Photo photo = Photo.builder()
                     .listing(listing)
                     .filePath(path)
                     .name(name)
-                    .build());
+                    .build();
+            photoRepository.save(photo);
+            listing.getPhotos().add(photo);
+
+
             listingRepository.save(listing);
         }
     }
