@@ -17,13 +17,7 @@ public class Photo {
     private String filePath;
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinTable(
-            name="LISTING_PHOTOS",
-            inverseJoinColumns = @JoinColumn(name="LISTING_ID", nullable = false),
-            joinColumns = {
-                    @JoinColumn(name="PHOTO_ID", nullable = false)
-            }
-    )
-    private Listing listing;
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "LISTING_ID", nullable = false)
+        private Listing listing;
 }

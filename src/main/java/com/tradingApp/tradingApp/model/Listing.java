@@ -43,13 +43,6 @@ public class Listing {
     )
     private Category category;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "LISTING_PHOTOS",
-            joinColumns = @JoinColumn(name = "LISTING_ID", nullable = false),
-            inverseJoinColumns = {
-                    @JoinColumn(name = "PHOTO_ID", nullable = false)
-            }
-    )
+    @OneToMany(mappedBy = "listing", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Photo> photos;
 }

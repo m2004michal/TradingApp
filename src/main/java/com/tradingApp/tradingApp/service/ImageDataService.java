@@ -30,7 +30,7 @@ public class ImageDataService {
         if (imageValidationService.isProvidedImageValid(multipartFile)) {
             UserEntity userEntity = userEntityRepository.findById(userEntityId).orElseThrow(() -> new RuntimeException("No user with given id found"));
             String name = UUID.randomUUID().toString();
-            String toUrl = generateRandomUrl(multipartFile, name);
+            String toUrl = generateRandomUrlForProfilePicture(multipartFile, name);
             try {
                 multipartFile.transferTo(new File(toUrl));
             } catch (IOException e) {
@@ -45,7 +45,7 @@ public class ImageDataService {
         if (imageValidationService.isProvidedImageValid(multipartFile)) {
             Listing listing = listingRepository.findById(listingId).orElseThrow( ()-> new RuntimeException( "no listing with given id found"));
             String name = UUID.randomUUID().toString();
-            String path = generateRandomUrl(multipartFile, name);
+            String path = generateRandomUrlForListingImage(multipartFile, name);
             try {
                 multipartFile.transferTo(new File(path));
             } catch (IOException e) {
@@ -74,8 +74,12 @@ public class ImageDataService {
     }
 
 
-    public String generateRandomUrl(MultipartFile multipartFile, String uuid){
+    public String generateRandomUrlForProfilePicture(MultipartFile multipartFile, String uuid){
         return new File("").getAbsolutePath() +
                 "\\src\\main\\resources\\photos\\profilePictures\\" + uuid + "." + getFileExtension(multipartFile);
+    }
+    public String generateRandomUrlForListingImage(MultipartFile multipartFile, String uuid){
+        return new File("").getAbsolutePath() +
+                "\\src\\main\\resources\\photos\\listingsPictures\\" + uuid + "." + getFileExtension(multipartFile);
     }
 }

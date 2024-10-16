@@ -16,7 +16,6 @@ import java.awt.*;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -27,7 +26,6 @@ public class ListingMapper {
     private final UserEntityRepository userEntityRepository;
     private final CategoryRepository categoryRepository;
     private final GamesRepository gamesRepository;
-    private final ImageMapper imageMapper;
 
     public Listing mapDtoToListing(ListingRequestWithNoPhotos listingRequest){
         return Listing.builder()
@@ -50,5 +48,6 @@ public class ListingMapper {
                 .photos(new ArrayList<>())
                 .url(UUID.randomUUID().toString())
                 .build();
+        //dsaasdasdasdasdasdasd
     }
 }
