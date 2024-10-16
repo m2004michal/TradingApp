@@ -6,6 +6,7 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -49,5 +50,5 @@ public class Listing {
                     @JoinColumn(name = "PHOTO_ID", nullable = false)
             }
     )
-    private ArrayList<Photo> photos;
+    private List<Photo> photos;
 }
