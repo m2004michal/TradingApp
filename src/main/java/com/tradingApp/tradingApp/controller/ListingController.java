@@ -8,10 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -22,10 +19,9 @@ import java.util.List;
 public class ListingController {
 
     private final ListingService listingService;
-    private final ListingMapper listingMapper;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createListing(@RequestBody ListingRequestWithNoPhotos listingRequestWithNoPhotos, @RequestParam("images") List<MultipartFile> images) {
+    public ResponseEntity<String> createListing(@ModelAttribute ListingRequestWithNoPhotos listingRequestWithNoPhotos, @RequestParam("images") List<MultipartFile> images) {
         listingService.save(listingRequestWithNoPhotos, images);
         return new ResponseEntity<>("Post created succesfully", HttpStatus.CREATED);
     }

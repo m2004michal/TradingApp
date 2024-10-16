@@ -1,10 +1,8 @@
 package com.tradingApp.tradingApp.service;
 
-import com.tradingApp.tradingApp.dto.ListingRequest;
 import com.tradingApp.tradingApp.dto.ListingRequestWithNoPhotos;
 import com.tradingApp.tradingApp.mapper.ListingMapper;
 import com.tradingApp.tradingApp.model.Listing;
-import com.tradingApp.tradingApp.model.Photo;
 import com.tradingApp.tradingApp.repository.ListingRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
