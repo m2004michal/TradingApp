@@ -8,6 +8,8 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+
 
 @Controller
 @RequestMapping("api/auth")
@@ -33,10 +35,11 @@ public class AuthController {
         HttpHeaders httpHeaders = new HttpHeaders();
         AuthenticationResponse login = authService.login(loginRequest);
         httpHeaders.add("Set-Cookie", authService.getRefreshTokenCookie(login.getRefreshToken()).toString());
+        if (loginRequest.isRememberMe())
+            httpHeaders.setExpires(Instant.now().plusSeconds(2629743));
         return ResponseEntity.ok()
                 .headers(httpHeaders)
                 .body(authenticationMapper.mapResponseToSecureResponse(login));
-
     }
 
     @PostMapping("refresh/token")
