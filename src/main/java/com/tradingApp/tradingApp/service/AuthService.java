@@ -9,6 +9,8 @@ import com.tradingApp.tradingApp.repository.RefreshTokenRepository;
 import com.tradingApp.tradingApp.repository.UserEntityRepository;
 import com.tradingApp.tradingApp.repository.VerificationTokenRepository;
 import com.tradingApp.tradingApp.security.JwtProvider;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpCookie;
@@ -41,6 +43,16 @@ public class AuthService {
     private final RefreshTokenService refreshTokenService;
     private final RefreshTokenRepository refreshTokenRepository;
     private static final int expireWhenBrowserClosed = -1;
+
+    public  Cookie getRefreshTokenCookieForRememberMe( LoginRequest loginRequest, AuthenticationResponse login) {
+        Cookie refreshTokenCookie = new Cookie("RefreshToken", login.getRefreshToken());
+        refreshTokenCookie.setHttpOnly(true);
+        refreshTokenCookie.setPath("/");
+        if (loginRequest.isRememberMe()) {
+            refreshTokenCookie.setMaxAge(60 * 60 * 24 * 365);
+        }
+        return refreshTokenCookie;
+    }
 
     @Transactional
     public void signup(RegisterRequest registerRequest) {

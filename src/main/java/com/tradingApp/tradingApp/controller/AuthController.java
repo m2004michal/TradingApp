@@ -35,14 +35,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<SecureAuthenticationResponse> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
         AuthenticationResponse login = authService.login(loginRequest);
-        Cookie refreshTokenCookie = new Cookie("RefreshToken", login.getRefreshToken());
-        refreshTokenCookie.setHttpOnly(true);
-        refreshTokenCookie.setPath("/");
-        if (loginRequest.isRememberMe()) {
-            refreshTokenCookie.setMaxAge(60 * 60 * 24 * 365); 
-        }
-        response.addCookie(refreshTokenCookie);
-
+        response.addCookie(authService.getRefreshTokenCookieForRememberMe( loginRequest, login));
         return ResponseEntity.ok()
                 .body(authenticationMapper.mapResponseToSecureResponse(login));
     }
