@@ -3,14 +3,12 @@ package com.tradingApp.tradingApp.controller;
 import com.tradingApp.tradingApp.dto.*;
 import com.tradingApp.tradingApp.mapper.AuthenticationMapper;
 import com.tradingApp.tradingApp.service.AuthService;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
 
 
 @Controller
