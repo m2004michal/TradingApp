@@ -3,8 +3,9 @@ package com.tradingApp.tradingApp.controller;
 import com.tradingApp.tradingApp.dto.*;
 import com.tradingApp.tradingApp.mapper.AuthenticationMapper;
 import com.tradingApp.tradingApp.service.AuthService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.web.server.Cookie;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -32,15 +33,17 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<SecureAuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
-        HttpHeaders httpHeaders = new HttpHeaders();
+    public ResponseEntity<SecureAuthenticationResponse> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
         AuthenticationResponse login = authService.login(loginRequest);
-        httpHeaders.add("Set-Cookie", authService.getRefreshTokenCookie(login.getRefreshToken()).toString());
-        if (loginRequest.isRememberMe()){
-            httpHeaders.setAccessControlMaxAge(860000);
+        Cookie refreshTokenCookie = new Cookie("RefreshToken", login.getRefreshToken());
+        refreshTokenCookie.setHttpOnly(true);
+        refreshTokenCookie.setPath("/");
+        if (loginRequest.isRememberMe()) {
+            refreshTokenCookie.setMaxAge(60 * 60 * 24 * 365); 
         }
+        response.addCookie(refreshTokenCookie);
+
         return ResponseEntity.ok()
-                .headers(httpHeaders)
                 .body(authenticationMapper.mapResponseToSecureResponse(login));
     }
 
