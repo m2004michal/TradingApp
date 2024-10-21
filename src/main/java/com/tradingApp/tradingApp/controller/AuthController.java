@@ -4,6 +4,7 @@ import com.tradingApp.tradingApp.dto.*;
 import com.tradingApp.tradingApp.mapper.AuthenticationMapper;
 import com.tradingApp.tradingApp.service.AuthService;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.web.server.Cookie;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -35,8 +36,9 @@ public class AuthController {
         HttpHeaders httpHeaders = new HttpHeaders();
         AuthenticationResponse login = authService.login(loginRequest);
         httpHeaders.add("Set-Cookie", authService.getRefreshTokenCookie(login.getRefreshToken()).toString());
-        if (loginRequest.isRememberMe())
-            httpHeaders.setExpires(Instant.now().plusSeconds(2629743));
+        if (loginRequest.isRememberMe()){
+            httpHeaders.setAccessControlMaxAge(860000);
+        }
         return ResponseEntity.ok()
                 .headers(httpHeaders)
                 .body(authenticationMapper.mapResponseToSecureResponse(login));
