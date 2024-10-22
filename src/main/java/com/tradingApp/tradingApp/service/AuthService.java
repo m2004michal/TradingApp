@@ -148,6 +148,7 @@ public class AuthService {
                 .refreshToken(refreshToken)
                 .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
                 .username(username)
+                .id(userEntityRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("no user with given username found")).getId())
                 .build();
     }
 
