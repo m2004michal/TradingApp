@@ -3,6 +3,7 @@ package com.tradingApp.tradingApp.controller;
 import com.tradingApp.tradingApp.dto.*;
 import com.tradingApp.tradingApp.mapper.AuthenticationMapper;
 import com.tradingApp.tradingApp.service.AuthService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.*;
@@ -33,14 +34,15 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<SecureAuthenticationResponse> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
         AuthenticationResponse login = authService.login(loginRequest);
-        response.addCookie(authService.getRefreshTokenCookieForRememberMe( loginRequest, login));
+        response.addCookie(authService.getRefreshTokenCookie( loginRequest, login));
         return ResponseEntity.ok()
                 .body(authenticationMapper.mapResponseToSecureResponse(login));
     }
 
     @PostMapping("refresh/token")
-    public ResponseEntity<SecureAuthenticationResponse> refreshTokens(@RequestBody RefreshTokenRequest refreshTokenRequest, @CookieValue(name = "RefreshToken") String refreshToken){
+    public ResponseEntity<SecureAuthenticationResponse> refreshTokens(@RequestBody RefreshTokenRequest refreshTokenRequest, @CookieValue(name = "RefreshToken") String refreshToken, HttpServletResponse response){
         AuthenticationResponse authenticationResponse = authService.refreshTokenUsingCookie(refreshTokenRequest.getUsername(), refreshToken);
+        response.addCookie(authService.refreshRefreshTokenCookie(refreshToken));
         return new ResponseEntity<>(authenticationMapper.mapResponseToSecureResponse(authenticationResponse), HttpStatus.OK);
     }
 }

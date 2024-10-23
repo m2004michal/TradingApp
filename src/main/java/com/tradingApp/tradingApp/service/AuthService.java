@@ -44,13 +44,22 @@ public class AuthService {
     private final RefreshTokenRepository refreshTokenRepository;
     private static final int expireWhenBrowserClosed = -1;
 
-    public  Cookie getRefreshTokenCookieForRememberMe( LoginRequest loginRequest, AuthenticationResponse login) {
+    public  Cookie getRefreshTokenCookie( LoginRequest loginRequest, AuthenticationResponse login) {
         Cookie refreshTokenCookie = new Cookie("RefreshToken", login.getRefreshToken());
         refreshTokenCookie.setHttpOnly(true);
         refreshTokenCookie.setPath("/");
         if (loginRequest.isRememberMe()) {
             refreshTokenCookie.setMaxAge(60 * 60 * 24 * 365);
-        }
+        }else
+            refreshTokenCookie.setMaxAge(60*15);
+        return refreshTokenCookie;
+    }
+
+    public Cookie refreshRefreshTokenCookie(String token){
+        Cookie refreshTokenCookie = new Cookie("RefreshToken", token);
+        refreshTokenCookie.setHttpOnly(true);
+        refreshTokenCookie.setPath("/");
+            refreshTokenCookie.setMaxAge(60*15);
         return refreshTokenCookie;
     }
 
