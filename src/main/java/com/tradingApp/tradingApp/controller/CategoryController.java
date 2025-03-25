@@ -21,7 +21,7 @@ public class CategoryController {
         return new ResponseEntity<>(categoryServcie.createCategory(categoryRequest), HttpStatus.OK);
     }
 
-    @GetMapping("/delete/{gameName}/{categoryName}")
+    @DeleteMapping("/delete/{gameName}/{categoryName}")
     @PreAuthorize("hasAuthority('SCOPE_ADMIN_DELETE')")
     public ResponseEntity<String> deleteCategory(@PathVariable String gameName, @PathVariable String categoryName) {
         String message = categoryServcie.deleteCategoryFromGame(gameName, categoryName);
