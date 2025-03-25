@@ -1,8 +1,6 @@
 package com.tradingApp.tradingApp.controller;
 
-import com.tradingApp.tradingApp.dto.ListingRequest;
 import com.tradingApp.tradingApp.dto.ListingRequestWithNoPhotos;
-import com.tradingApp.tradingApp.mapper.ListingMapper;
 import com.tradingApp.tradingApp.service.ListingService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
