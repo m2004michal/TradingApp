@@ -26,8 +26,7 @@ public class GameController {
     @PostMapping("/addGame")
     @PreAuthorize("hasAuthority('SCOPE_ADMIN_CREATE')")
     public ResponseEntity<String> addGame(@RequestBody GameRequest gameRequest){
-        gameService.addGame(gameRequest);
-        return new ResponseEntity<>("Game added successfully", HttpStatus.OK);
+        return gameService.addGame(gameRequest);
     }
     @PostMapping("/deleteGameById")
     @PreAuthorize("hasAuthority('SCOPE_ADMIN_DELETE')")
