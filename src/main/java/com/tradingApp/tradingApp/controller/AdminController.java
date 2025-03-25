@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 public class AdminController {
     @GetMapping("/getRole")
-    public ResponseEntity<String> verifyAccount(){
+    public ResponseEntity<String> getRoleForLoggedInUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String toRespond;
         if (authentication.getAuthorities().toString().contains("ADMIN"))
