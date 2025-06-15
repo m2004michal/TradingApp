@@ -13,7 +13,6 @@ import static com.tradingApp.tradingApp.model.Enums.Permission.*;
 
 @Getter
 @RequiredArgsConstructor
-
 public enum Role {
     USER(Collections.emptySet()),
     ADMIN(
