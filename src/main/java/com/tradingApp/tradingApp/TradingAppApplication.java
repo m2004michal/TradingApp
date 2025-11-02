@@ -13,8 +13,7 @@ public class TradingAppApplication {
 
 
 	public static void main(String[] args){
-		System.out.println("TradingApp Application Started");
-		System.out.println("Test123123");
 		SpringApplication.run(TradingAppApplication.class, args);
+		System.out.println("TEST");
 	}
 }
