@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TradingAppApplication {
 
-ssdaSCXAsdfasdd
+ssdaSCXAsdfasddsdfasdvsvdasdvadsvasdv
 	public static void main(String[] args){
 		SpringApplication.run(TradingAppApplication.class, args);
 		System.out.println("TEST");
