@@ -11,8 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TradingAppApplication {
 	public static void main(String[] args){
-		SpringApplication.run(TradingAppApplication.class, args);d
-		System.out.println("TEST");dasdasdasdasddASDasdASCacSDCsdvddddddddddddd
-				sdasdasdasdasd
+		SpringApplication.run(TradingAppApplication.class, args);
+		System.out.println("analytics work?");
 	}
 }
