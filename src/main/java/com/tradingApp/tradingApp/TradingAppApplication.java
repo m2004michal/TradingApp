@@ -15,5 +15,6 @@ public class TradingAppApplication {
 		System.out.println("analytics work?");dddddd
 				dasdasd
 				sdADasddSDSADS
+						ddddddddddddddddd
 	}
 }
