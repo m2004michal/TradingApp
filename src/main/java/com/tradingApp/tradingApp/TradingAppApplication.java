@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 @Service
 public class TradingAppApplication {
-
-
 	public static void main(String[] args){
 		SpringApplication.run(TradingAppApplication.class, args);
+		System.out.println("analytics work?");dddddd
+				dasdasd
+				sdADasddSDSADS
+						ddddddddddddddddd
 	}
 }
